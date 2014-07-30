@@ -1,0 +1,64 @@
+<% page_heading @board_thread.title %>
+
+<div class="thread">
+  <div class="top-feeder">
+    <span class="pull-right">
+      <%= link_to fa_icon('fa-picture-o') + ' ' + 'Show Images only', images_board_thread_path(@board_thread), :class => 'button' %>
+      <%= link_to fa_icon('fa-link') + ' ' + 'Links to Images', links_board_thread_path(@board_thread), :class => 'button' %>
+      <%= video_link @board_thread.video, true %>
+    </span>
+
+    <h1>
+      <%= fa_icon('fa-lock fa-lg') if @board_thread.closed %>
+      <%= fa_icon('fa-ban fa-lg') if @board_thread.picture_freeze %>
+      <%= fa_icon('fa-download fa-lg') if @board_thread.free_download %>
+      <%= @board_thread.title %>
+    </h1>
+  </div>
+
+  <% if @board_thread.video %>
+      <%= render 'video', :video => @board_thread.video %>
+  <% end %>
+
+  <%= render 'thread_node', :posts => @board_thread.posts.root_posts %>
+</div>
+
+<div class="bottom-feeder">
+  <div class="new">
+    <%= link_to 'verify.csv', verify_board_thread_path(format: :csv) %>,
+    <%= link_to 'verify.sfv', verify_board_thread_path(format: :sfv) %>,
+    <%= link_to 'verify.sha1', verify_board_thread_path(format: :sha1) %>,
+    <%= link_to 'verify.md5', verify_board_thread_path(format: :md5) %>
+  </div>
+
+  <div class="new">
+    <% if can?(:create_post, @board_thread) %>
+        <%= link_to fa_icon('fa-plus') + ' ' + 'New top-level post', new_board_thread_post_path(@board_thread), :class => 'button' %>
+    <% end %>
+    <% if can?(:update, @board_thread) %>
+        <%= link_to fa_icon('fa-pencil') + ' ' + 'Edit Thread', edit_board_thread_path(@board_thread), :class => 'button' %>
+    <% end %>
+    <% if can?(:delete, @board_thread) %>
+        <%= link_to fa_icon('fa-eraser') + ' ' + 'Delete Thread', "#delete-thread-modal-#{@board_thread.id}", :class => 'button danger' %>
+        <section class="semantic-content" id="delete-thread-modal-<%= @board_thread.id %>" tabindex="-1" role="dialog" aria-labelledby="modal-label" aria-hidden="true">
+          <div class="modal-inner">
+            <header><h1>Are you sure you want to delete this thread?</h1></header>
+            <div class="modal-content">This action will delete the whole thread, with all posts and all images.</div>
+            <footer>
+              <div style="text-align: right; margin-top: 1em;">
+                <%= form_for(@board_thread, :html => {:method => :delete}) do %>
+                    <%= button_tag fa_icon('fa-eraser') +'Delete Thread', :class => 'button danger' %>
+                    <%= link_to fa_icon('fa-times-circle-o') +'Cancel', '#!', :class => 'button' %>
+                <% end %>
+              </div>
+            </footer>
+          </div>
+          <a href="#!" class="modal-close" title="Close this modal" data-close="Close" data-dismiss="modal">×</a>
+        </section>
+    <% end %>
+    <% if can?(:download, @board_thread) %>
+        <%= link_to fa_icon('fa-download') + ' ' + 'as .zip', zip_board_thread_path(@board_thread), :class => 'button' %>
+    <% end %>
+    <%= video_link @board_thread.video, true %>
+  </div>
+</div>

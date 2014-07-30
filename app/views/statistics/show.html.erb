@@ -1,0 +1,18 @@
+<div class="top-feeder">
+  <h1>Statistic <%= @type.titleize %></h1>
+</div>
+
+
+<h2>Total: <%= @total.counter %></h2>
+
+<ul class="timeline">
+  <% @statistics.each do |statistic| %>
+    <% date = Date.parse(statistic.scope) %>
+    <li>
+      <a href="" title="<%= statistic.scope %>">
+        <span class="label <%= [0,6].include?(date.wday) ? 'weekend' : '' %>"><%= date.mday %></span>
+        <span class="count " style="height: <%= 100.0 * statistic.counter / @maximum %>%">(<%= statistic.counter %>)</span>
+      </a>
+    </li>
+  <% end %>
+</ul>

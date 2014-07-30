@@ -1,0 +1,29 @@
+<% page_heading 'Warn user: ' + @warning.user.name %>
+
+<div class="top-feeder">
+  <h1>Warn user: <% @warning.user.name %></h1>
+</div>
+
+<%= form_for @warning do |f| %>
+    <% if @warning.errors.any? %>
+        <div id="error_explanation">
+          <h2>Form is invalid</h2>
+          <ul>
+            <% for message in @warning.errors.full_messages %>
+                <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+
+    <div class="field">
+      <%= f.label :reason, :class => 'editor-label' %>
+      <%= f.text_field :reason %>
+    </div>
+
+    <div class="bottom-feeder clear">
+      <div class="new">
+        <%= f.submit 'Update Warning', :class => 'button' %>
+      </div>
+    </div>
+<% end %>

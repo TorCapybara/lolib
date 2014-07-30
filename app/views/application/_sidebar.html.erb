@@ -1,0 +1,91 @@
+<% if logged_in? %>
+    <% if (current_user.warnings.active_warnings.count > 0) %>
+        <h1>Warnings</h1>
+        <p class="warning">
+          <strong><%= current_user.warnings.last.moderator.name %>:</strong> <%= current_user.warnings.last.reason %>
+        </p>
+    <% end %>
+
+    <% cache_interval = DateTime.now.to_i / 30 %>
+
+    <h1>lolib Announcements</h1>
+    <p>Image Board rethought!</p>
+    <ul class="announcement">
+      <% BoardThread.announced.each do |announcement| %>
+          <li>
+            <%= link_to announcement.title, announcement %>
+          </li>
+      <% end %>
+    </ul>
+
+    <h1><%= link_to 'Text Search', search_text_path %></h1>
+    <form action="<%= search_text_path %>" method="get">
+      <div class="field">
+        <%= text_field_tag :q, nil, :style => 'width:210px;' %>
+        <%= submit_tag 'Search', :name => nil, :class => 'button', :style => 'width:0px; height:0px; opacity:0;' %>
+      </div>
+    </form>
+
+    <% cache("sidebar_imagess/#{cache_interval}") do %>
+        <h1>Newest Pictures</h1>
+        <% BoardThread.latest_threads_with_images.each_with_index do |thread, index| %>
+            <%= link_to('', thread, :title => (thread.name_space.full_path + ' / ' + thread.title), :class => thread.images.last.class_thumbs + " spr-sb spr#{index * 2}") %>
+        <% end %>
+    <% end %>
+
+    <h1>You</h1>
+    <div><strong>Your Role:</strong> <%= link_to current_user.role.name, current_user.role %></div>
+    <% if logged_in? %>
+        <div>
+          <strong>Inbox:</strong>  <%= link_to "#{current_user.inbox_messages.count} messages", private_messages_path %>
+        </div>
+        <div><strong>Downloaded:</strong> <%= number_to_human_size current_user.byte_download %></div>
+    <% end %>
+    <p></p>
+
+    <% if false %>
+
+        <% cache("sidebar_statistics/#{cache_interval}") do %>
+            <% unit = {units: {unit: '', thousand: 'K', million: 'M', billion: 'G'}} %>
+            <h1><%= link_to "Statistics", statistics_path %></h1>
+            <ul>
+              <li><strong>Users/Invited/On:</strong> <%= User.all.count - 2 %>
+                /  <%= User.where('mentor_id IS NOT NULL').count %>  / <%= User.users_online.count %></li>
+              <li><strong>Board/Threads:</strong> <%= NameSpace.count %> /  <%= BoardThread.count %></li>
+              <li><strong>Posts/Images:</strong> <%= Post.count %> /  <%= Image.count %></li>
+              <li><strong>Hits/Today:</strong>
+                <%= number_to_human(statistic_model('hit', 'global').counter, unit) %> /
+                <%= number_to_human(statistic_model('hit', Date.today).counter, unit) %>
+              </li>
+              <li><strong>Downloads/Today:</strong>
+                <%= number_to_human(statistic_model('image_full', 'global').counter, unit) %> /
+                <%= number_to_human(statistic_model('image_full', Date.today).counter, unit) %>
+              </li>
+              <li>
+                <strong>Thumbs/Today:</strong>
+                <%= number_to_human(statistic_model('image_thumb', 'global').counter, unit) %> /
+                <%= number_to_human(statistic_model('image_thumb', Date.today).counter, unit) %>
+              </li>
+            </ul>
+            <p></p>
+        <% end %>
+
+        <% if can?(:detail, @user) %>
+            <h1>Users Online</h1>
+            <% User.users_online.each do |user| %>
+                <%= link_user user %><span style="color:red;"><%= user.role.restricted_user? ? '*' : '' %></span>
+            <% end %>
+        <% end %>
+
+        <% if false %>
+            <h1>Access Rights</h1>
+            Role: <%= current_user.role.name %>
+            <% current_user.role.tokens.each do |token| %>
+                <%= "'#{token.name}'" %>
+            <% end %>
+            <p></p>
+        <% end %>
+    <% end %>
+<% else %>
+    <h1>Not logged in</h1>
+<% end %>

@@ -1,0 +1,8 @@
+<div class="image-preview">
+  <%= link_to thread, :class => 'overlay', :title => thread.name_space.name do %>
+    <div class="thread" title="<%= thread.title %>"><%= thread.title %></div>
+  <% end %>
+  <% thread.image_sample.each do |image| %>
+    <%= image_tag(get_image_path(image, :thumb), :class => 'thumb') %>
+  <% end %>
+</div>

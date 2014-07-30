@@ -1,0 +1,3 @@
+h1. Your Rules
+
+This seeds the Rules WIKI entry.

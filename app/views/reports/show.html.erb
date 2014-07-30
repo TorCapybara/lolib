@@ -1,0 +1,34 @@
+<% page_heading "Report #{@report.id}" %>
+
+<div class="top-feeder">
+  <h1><%= "Report #{@report.id}" %> <small>by <%= @report.reporter.name %></small></h1>
+</div>
+
+<div>
+  <% if @report.post %>
+      <%= format_post(@report.post.text) %>
+  <% else %>
+      <strike><%= "posts/#{@report.post_id}" %> </strike>
+  <% end %>
+</div>
+
+
+<div class="report">
+  <h4>Report</h4>
+  <%= format_post @report.message %>
+</div>
+
+<div class="bottom-feeder clear">
+  <div class="new">
+    <% if @report.handled %>
+        <%= fa_icon('fa-check-square-o') %> Report was handled
+    <% else %>
+        <%= form_for(@report, :html => { :style => "display: inline;" }) do |f| %>
+            <%= f.hidden_field :handled, :value => :true  %>
+            <%= submit_tag 'I solved this issue', :name => nil, :class => 'button primary' %>
+        <% end %>
+    <% end %>
+    <%= link_to fa_icon('fa-pencil') + 'Edit Report', edit_report_path(@report), :class => 'button' %>
+    <%= link_to fa_icon('fa-link') + 'Thread', link_to_post_in_thread(@report.post), :class => 'button' %>
+  </div>
+</div>

@@ -1,0 +1,74 @@
+/* CSS only rating */
+
+.rating {
+  float: left;
+  position: relative;
+  padding: 10px;
+  padding-top: 0;
+  padding-top: 5px;
+  margin-bottom: 30px;
+  background: #F6F6F6;
+  border: #888 solid thin;
+}
+
+legend {
+  padding: 1px 2px;
+  background-color: #B4CECE;
+  color: #222222;
+}
+
+.rating:not(:checked) > input {
+  position: absolute;
+  top: -9999px;
+  clip: rect(0, 0, 0, 0);
+}
+
+.rating:not(:checked) > label {
+  float: right;
+  width: 1em;
+  padding: 0 .1em;
+  overflow: hidden;
+  white-space: nowrap;
+  cursor: pointer;
+  font-size: 150%;
+  line-height: 1.2;
+  color: #888;
+}
+
+.rating:not(:checked) > label:before {
+  font-family: FontAwesome;
+  content: "\f006";
+  width: 1.2em;
+  text-align: center;
+  display: inline-block;
+}
+
+.rating > input:checked ~ label {
+  color: #f70;
+}
+
+.rating > input:checked ~ label:before {
+  content: "\f005";
+}
+
+.rating:not(:checked) > label:hover,
+.rating:not(:checked) > label:hover ~ label {
+  color: #e3cf7a;
+}
+
+.rating:not(:checked) > label:hover:before,
+.rating:not(:checked) > label:hover ~ label:before {
+  content: "\f005";
+}
+
+.rating > input:checked + label:hover,
+.rating > input:checked + label:hover ~ label,
+.rating > input:checked ~ label:hover,
+.rating > input:checked ~ label:hover ~ label,
+.rating > label:hover ~ input:checked ~ label {
+  color: #ea0;
+}
+
+.rating > label:active {
+  position: relative;
+}

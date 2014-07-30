@@ -1,0 +1,59 @@
+<div class="">
+  <div class="center">
+    <div class="image-effects image border">
+      <%= image_tag(get_cs_video_path(video), class: 'video-cs') %>
+      <div class="caption">
+        <%= video.name %><br>
+        <%= video.processed ? '' : 'Video not yet processed' %><br>
+        <%= 'Free Download' if video.board_thread.free_download %>
+      </div>
+    </div>
+  </div>
+  <div class="clear"></div>
+  <div class="center">
+    <table>
+      <tr>
+        <td class="key">Filename</td>
+        <td><%= video_link video %></td>
+        <td class="key">Filesize</td>
+        <td><%= number_to_human_size(video.size) %></td>
+      </tr>
+      <tr>
+        <td class="key">Video Codec</td>
+        <td><%= video.video_codec %></td>
+        <td class="key">Audio Codec</td>
+        <td><%= video.audio_codec ? video.audio_codec : 'No audio' %></td>
+      </tr>
+      <tr>
+        <td class="key">Frame Rate</td>
+        <td><%= video.frame_rate %> fps</td>
+        <td class="key">Sample Rate</td>
+        <td><%= video.sample_rate > 0 ? video.sample_rate.to_s + ' Hz' : 'N/A'%></td>
+      </tr>
+      <tr>
+        <td class="key">Dimensions</td>
+        <td><%= video.width %> x <%= video.height %></td>
+        <td class="key">Channels</td>
+        <td><%= video.audio_channels %></td>
+      </tr>
+      <tr>
+        <td class="key">Colorspace</td>
+        <td><%= video.colorspace %></td>
+        <td class="key">Filesize</td>
+        <td><%= number_to_human_size(video.size) %></td>
+      </tr>
+      <tr>
+        <td class="key">MD5</td>
+        <td><%= video.md5_digest %></td>
+        <td class="key">Bitrate</td>
+        <td><%= video.bit_rate %> KB/s</td>
+      </tr>
+      <tr>
+        <td class="key">Sha1</td>
+        <td><%= video.sha1_digest %></td>
+        <td class="key">Uploaded by:</td>
+        <td><%= link_user(video.user) %></td>
+      </tr>
+    </table>
+  </div>
+</div>

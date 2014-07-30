@@ -1,0 +1,17 @@
+<% page_heading 'Warning'%>
+
+<div class="top-feeder">
+  <h1>Warning</h1>
+</div>
+<p>
+  <%= @warning.reason %>
+</p>
+
+<div class="bottom-feeder">
+  <div class="new">
+    <% if can? :update, @post %>
+        <%= link_to fa_icon('fa-pencil') + ' ' + 'Edit Warning', edit_warning_path(@warning), :class => 'button' %>
+    <% end %>
+    Warning issued at: <%= display_time(@warning.created_at) %> by <strong><%= @warning.moderator.name %></strong>
+  </div>
+</div>

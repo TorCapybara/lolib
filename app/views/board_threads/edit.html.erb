@@ -1,0 +1,65 @@
+<div class="top-feeder">
+  <h1>Edit Thread</h1>
+</div>
+
+<%= form_for(@board_thread) do |f| %>
+    <% if @board_thread.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@board_thread.errors.count, "error") %> prohibited this board_thread from being saved:</h2>
+
+          <ul>
+            <% @board_thread.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+
+    <div class="field">
+      <%= f.label :title, :class => 'editor-label' %>
+      <%= f.text_field :title %>
+    </div>
+
+    <div class="field">
+      <%= f.label :name_space, :class => 'editor-label' %>
+      <%= f.select :name_space_id, NameSpace.select_tree %>
+    </div>
+
+    <div class="field">
+      <%= f.label :sticky, :class => 'editor-label' %>
+      <%= f.check_box :sticky  %>&nbsp;
+    </div>
+
+    <div class="field">
+      <%= f.label :picture_freeze, :class => 'editor-label' %>
+      <%= f.check_box :picture_freeze %>&nbsp;
+    </div>
+
+    <div class="field">
+      <%= f.label :closed, :class => 'editor-label' %>
+      <%= f.check_box :closed %>&nbsp;
+    </div>
+
+    <div class="field">
+      <%= f.label :announced, :class => 'editor-label' %>
+      <%= f.check_box :announced %>&nbsp;
+    </div>
+
+    <div class="field">
+      <%= f.label :index, :class => 'editor-label' %>
+      <%= f.check_box :index %>&nbsp;
+    </div>
+
+    <div class="field">
+      <%= f.label :free_download, :class => 'editor-label' %>
+      <%= f.check_box :free_download %>&nbsp;
+    </div>
+
+    <div class="bottom-feeder clear">
+      <div class="new">
+        <%= f.submit 'Save Thread', :class => 'button' %>
+        <%= link_to 'Cancel', @board_thread, :class => 'button' %>
+      </div>
+    </div>
+<% end %>
+

@@ -1,0 +1,144 @@
+<% page_heading 'User: ' + @user.name %>
+
+<div class="top-feeder">
+    <span class="pull-right">
+      <%= link_to fa_icon('fa-list') + ' ' + 'Posts by User', posts_user_path(@user), :class => 'button' %>
+      <% if can?(:read, Referer) %>
+        <%= link_to fa_icon('fa-external-link-square') + ' ' + 'Referers', referers_user_path(@user), :class => 'button' %>
+      <% end %>
+    </span>
+
+  <h1><%= @user.name %></h1>
+</div>
+
+<h4>Profile</h4>
+
+<%= image_tag @user.avatar.file ? get_avatar_image_path(@user, :full) : asset_path('Anonymous.png'), :class => 'border pull-right' %>
+<table>
+  <tr>
+    <td class="caption">Description:</td>
+    <td><%= @user.description %></td>
+  </tr>
+  <tr>
+    <td class="caption">TorChat:</td>
+    <td><%= @user.tor_chat %></td>
+  </tr>
+  <tr>
+    <td class="caption">Likes:</td>
+    <td><%= @user.likes %></td>
+  </tr>
+  <tr>
+    <td class="caption">Mentor:</td>
+    <td><%= @user.mentor ? link_to(@user.mentor.name, @user.mentor) : "none" %></td>
+  </tr>
+  <tr>
+    <td class="caption">Role:</td>
+    <td><%= link_to @user.role.name, @user.role %></td>
+  </tr>
+</table>
+
+<% if can?(:read, Warning) and @user.warnings.count > 0 %>
+  <h4>Warnings</h4>
+  <% @user.warnings.each do |warning| %>
+        <p class="warning">
+          <%= link_to fa_icon('fa-search-plus'), warning %>
+
+          <em>[<%= display_time(warning.created_at) %>]</em> <strong><%= warning.moderator.name %>:</strong> <%= warning.reason %>
+        </p>
+  <% end %>
+<% end %>
+
+<h4>Statistics</h4>
+
+<div>
+  <table>
+    <tr>
+      <td class="caption">Threads:</td>
+      <td> <%= @user.thread_count %></td>
+    </tr>
+    <tr>
+      <td class="caption">Posts:</td>
+      <td> <%= @user.posts_count %></td>
+    </tr>
+    <tr>
+      <td class="caption">Images:</td>
+      <td> <%= @user.images_count %></td>
+    </tr>
+    <tr>
+      <td class="caption">Images Viewed Today:</td>
+      <td> <%= @user.today_views %></td>
+    </tr>
+    <% if can?(:detail, @user) %>
+        <tr>
+          <td class="caption">Active:</td>
+          <td><%= display_time(@user.last_online) if @user.last_online %> </td>
+        </tr>
+        <tr>
+          <td class="caption">Downloaded Images:</td>
+          <td><%= @user.image_download %> </td>
+        </tr>
+        <tr>
+          <td class="caption">Downloaded Bytes:</td>
+          <td><%= number_to_human_size @user.byte_download %> </td>
+        </tr>
+    <% end %>
+  </table>
+</div>
+
+<h4>Invites</h4>
+<div>
+  <table>
+    <tr>
+      <th>Created</th>
+      <th>Invitation Code</th>
+      <th>Invited/Trusted</th>
+    </tr>
+    <% @user.invitations.each do |invitation| %>
+        <tr>
+          <td><%= invitation.created_at %></td>
+          <td>
+            <% if current_user == @user %>
+                <%= invitation.invitation_code %>
+            <% else %>
+                not shown
+            <% end %>
+          </td>
+          <td><%= invitation.user ? link_user(invitation.user) : 'not used' %></td>
+        </tr>
+    <% end %>
+  </table>
+</div>
+
+<div class="bottom-feeder clear">
+  <div class="new">
+    <% if can? :create, PrivateMessage %>
+        <%= link_to(fa_icon('fa-envelope-o') + ' ' + 'Send PM', pm_user_path(@user), :class => 'button') %>
+    <% end %>
+
+    <% if can?(:update, @user) %>
+        <%= link_to(fa_icon('fa-pencil') + ' ' + 'Edit profile', edit_user_path, :class => 'button') %>
+    <% end %>
+
+    <% if can?(:change_password, @user) %>
+        <%= link_to(fa_icon('fa-key') + ' ' + 'Change Password', change_password_user_path(@user), :class => 'button') %>
+    <% end %>
+
+    <% if can?(:delete, @user) %>
+        <%= link_to(fa_icon('fa-eraser') + ' ' + 'Delete profile', delete_user_path, :class => 'button') %>
+    <% end %>
+
+    <% if can?(:create, Invitation) and @user == current_user %>
+        <%= link_to(fa_icon('fa-gift') + ' ' + 'Create Invitation', create_invitation_user_path, :class => 'button') %>
+    <% end %>
+
+    <% if can?(:create, Invitation) %>
+        <% if !@user.mentor and @user.role.restricted_user? %>
+            <%= link_to(fa_icon('fa-check-square') + ' ' + 'Trust User / Send Invite', trust_user_path(@user), :class => 'button') %>
+        <% end %>
+    <% end %>
+
+    <% if can? :create, Warning %>
+        <%= link_to(fa_icon('fa-warning') + ' ' + 'Warn user', [:new, @user, :warning], :class => 'button') %>
+    <% end %>
+  </div>
+</div>

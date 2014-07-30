@@ -1,0 +1,17 @@
+<div class="top-feeder">
+  <h1>User Settings</h1>
+</div>
+
+<%= form_for(@user, url: change_settings_user_path(@user)) do |f| %>
+    <div class="field">
+      <%= f.label :css, :class => 'editor-label' %>
+      <%= f.select :css, @user.css_options.invert %>
+    </div>
+
+    <div class="bottom-feeder clear">
+      <div class="new">
+        <%= f.submit 'Change Settings', :class => 'button' %>
+        <%= link_to(fa_icon('fa-times-circle-o') + 'Cancel', @user, :class => 'button') %>
+      </div>
+    </div>
+<% end %>

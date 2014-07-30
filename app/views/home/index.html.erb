@@ -1,0 +1,44 @@
+<% if logged_in? %>
+    <div class="top-feeder">
+  <span class="pull-right">
+    <%= link_to fa_icon('fa-list') + 'All Threads', board_threads_path, :class => 'button' %>
+    <%= link_to fa_icon('fa-comments') + ' All Boards', name_spaces_path, :class => 'button' %>
+  </span>
+
+      <h1>*lol* IB</h1>
+    </div>
+
+    <div class="wiki">
+      <% if @intro_wiki %>
+          <%= raw @intro_wiki %>
+      <% else %>
+          Create wiki entry with Title 'Homepage' to edit text here.
+      <% end %>
+    </div>
+
+    <h2>Active Threads</h2>
+
+    <%= render 'threads', :threads => @last_threads %>
+
+    <div class="bottom-feeder clear">
+      <div class="new">
+        <%= link_to fa_icon('fa-list') + 'All Threads', board_threads_path, :class => 'button' %>
+        <%= link_to fa_icon('fa-comments') + ' All Boards', name_spaces_path, :class => 'button' %>
+      </div>
+    </div>
+<% else %>
+    <h1>Welcome to the *lol* IB</h1>
+<% end %>
+
+<section class="semantic-content" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="modal-label" aria-hidden="true">
+  <div class="modal-inner">
+    <header id="modal-label"><h1>News</h1></header>
+    <div class="modal-content"><%= raw @news_wiki %></div>
+    <footer>
+      <div style="text-align: right; margin-top: 1em;">
+        <a class="button" data-dismiss="modal" title="Close this modal" href="#!">Close.</a>
+      </div>
+    </footer>
+  </div>
+  <a href="#!" class="modal-close" title="Close this modal" data-close="Close" data-dismiss="modal">×</a>
+</section>

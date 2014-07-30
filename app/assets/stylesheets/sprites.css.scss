@@ -1,0 +1,19 @@
+@import "bourbon";
+
+$thumb-size: 60px;
+
+@for $sprite from 0 through 1999 {
+  a.spr#{$sprite} {
+    background-position: ($sprite % 20) * -$thumb-size floor($sprite / 20) * -$thumb-size
+  }
+}
+
+@for $sprite from 0 through 8 {
+  .spr-sb.spr#{2 * $sprite}:hover {
+    background-position: (-120 * $sprite - $thumb-size) 0px;
+  }
+}
+
+.spr-sb {
+  @include transition(all 0.3s linear);
+}

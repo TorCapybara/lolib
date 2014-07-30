@@ -1,0 +1,122 @@
+* Bootstrap whonix
+
+Download whonix 8 images
+Virtualbox > File > Import Applicance
+
+* For gateway 128 MB RAM
+* For Workstation as much RAM and CPU as you can spare
+
+Run Whonix Gateway and Whonix Workstation
+
+For the gateway: accept everything and activate tor and make the step get up to date
+For the workstaton: accept everything, run whonixcheck, and go on with the next steps
+
+* Get up to date
+
+sudo apt-get update
+sudo apt-get distupgrade
+
+* cdrom0 is missing
+
+sudo mkdir /mnt/cdrom0
+sudo chmod 777 /mnt/cdrom0
+
+* now Guest additions can be mounted
+
+sudo apt-get install build-essentials module-assistant
+sudo m-a prepare
+
+cd /mnt/cdrom0
+sudo bash VBoxLinuxAdditions.run 
+
+* Activate Guest Additions needs a reboot
+sudo reboot
+
+* Some stuff you need to install
+
+sudo apt-get install libv8-dev
+
+* Install nodejs
+
+sudo apt-get install python g++ make checkinstall
+src=$(mktemp -d) && cd $src
+wget -N http://nodejs.org/dist/node-latest.tar.gz
+tar xzvf node-latest.tar.gz && cd node-v*
+./configure
+fakeroot checkinstall -y --install=no --pkgversion $(echo $(pwd) | sed -n -re's/.+node-v(.+)$/\1/p') make -j$(($(nproc)+1)) install
+sudo dpkg -i node_*
+
+* Instal rvm, ruby and rails
+
+curl -L get.rvm.io | bash -s stable
+
+restart console or source rvm
+
+rvm requirements 
+
+enter password for user (whonix standard: changeme)
+
+rvm install 2.1.1 (or later)
+
+* Make sure you are in a login shell, if you are not bash --login works.
+
+rvm use 2.1.1 --default (same as above)
+
+gem install rails 
+
+* Install Passanger and Nginx
+
+http://www.modrails.com/documentation/Users%20guide%20Nginx.html#install_add_apt_repo
+
+Add signing key for passanger
+
+sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 561F9B9CAC40B2F7
+
+Add https support to apt-get
+
+sudo apt-get install apt-transport-https ca-certificates
+
+whonix-8 uses debian wheezy use this apt repository
+
+# File: /etc/apt/sources.list.d/passenger.list
+# Debian 7
+deb https://oss-binaries.phusionpassenger.com/apt/passenger wheezy main
+
+secure the new apt source, and update
+
+sudo chown root: /etc/apt/sources.list.d/passenger.list
+sudo chmod 600 /etc/apt/sources.list.d/passenger.list
+sudo apt-get update
+
+Now install nginx and passanger:
+
+sudo apt-get install nginx-extras passenger
+
+Edit /etc/nginx/nginx.conf and uncomment passenger_root and passenger_ruby
+
+Restart Nginx:
+
+sudo service nginx restart
+
+create the directory for your ruby apps, classically it is at /var/www, 
+
+mkdir /var/rails_apps
+
+create a subdir for each application, and it should be owned by user and not root.
+
+*** Setup done ***
+
+*** Setup lolib ***
+
+* Memcache 
+sudo apt-get install memcached
+
+* library for mysql2 gem
+sudo apt-get install libmysqlclient-dev
+
+* library for rmagick gem 
+sudo apt-get install libmagickwand-dev
+
+bundle install
+
+

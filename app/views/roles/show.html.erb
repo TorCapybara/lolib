@@ -1,0 +1,11 @@
+<% page_heading "Roles #{@role.name}" %>
+
+<div class="top-feeder">
+  <h1>Role <%= @role.name%></h1>
+</div>
+
+<div class="bottom-feeder clear">
+  <div class="new">
+    <%= link_to  fa_icon('fa-bars') + 'Roles', roles_path, :class => 'button' %>
+  </div>
+</div>

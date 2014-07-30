@@ -1,0 +1,21 @@
+<% page_heading 'Images - Page ' + @page.to_s %>
+<div class="top-feeder">
+  <span class="pull-right">
+    <%= link_to fa_icon('fa-list') + ' All Threads', board_threads_path, :class => 'button' %>
+    <%= link_to fa_icon('fa-comments') + ' All Boards', name_spaces_path, :class => 'button' %>
+  </span>
+  <h1>Image Preview</h1>
+</div>
+
+<% @board_threads.each do |thread| %>
+    <% if thread.images.count > 0 %>
+      <%= render 'thread', :thread => thread  %>
+    <% end %>
+<% end %>
+
+<div class="clear-left"></div>
+
+<div class="bottom-feeder">
+  <%= will_paginate @board_threads , :previous_label => 'Older threads', :next_label => 'Newer threads' %>
+</div>
+

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title><%= page_title %></title>
+  <% case current_user.css_level %>
+  <% when 'simple' %>
+      <%= stylesheet_link_tag 'application-minimal', :media => 'all' %>
+  <% when 'moderate' %>
+      <%= stylesheet_link_tag 'application-simple', :media => 'all' %>
+  <% else %>
+      <%= stylesheet_link_tag 'application', :media => 'all' %>
+  <% end %>
+  <style type="text/css">
+      a.spr-sb { background-image: url('/latest.jpg') }
+    <% if @needs_sprites %>
+      a.spr-bt { background-image: url(<%= @needs_sprites %>) }
+    <% end %>
+  </style>
+
+  <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon"/>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+<div id="main">
+  <div id="header">
+    <div id="primary-menu">
+      <div id="logo"><%= link_to image_tag(asset_path('lolib-main.png')), root_path %></div>
+      <%= render 'menu' %>
+      <%= render 'messages' %>
+    </div>
+  </div>
+  <div id="content">
+    <div id="breadcrumbs">
+      <ul>
+        <%= render 'breadcrumbs' %>
+      </ul>
+    </div>
+    <div id="sidebar">
+      <%= render 'sidebar' %>
+    </div>
+    <div id="main-content">
+      <%= yield %>
+    </div>
+    <div class="clear"></div>
+  </div>
+  <div id="footer">
+    lolIB 2012 -   <%= Time.now.year %>  v0.11.2
+    <span class="pull-right">
+      <em class="tooltip-container">
+        <%= fa_icon('fa-html5') %>
+        <span class="tooltip tooltip-style1">
+          HTML 5
+        </span>
+      </em>
+      <em class="tooltip-container">
+        <%= fa_icon('fa-css3') %>
+        <span class="tooltip tooltip-style1">
+          The magic of CSS 3
+        </span>
+      </em>
+      <em class="tooltip-container">
+        <%= fa_icon('fa-github') + link_to('TorCapybara/lolib', 'https://github.com/TorCapybara/lolib') %>
+        <span class="tooltip tooltip-style1">
+          Contribute on github!
+        </span>
+      </em>
+    </span>
+  </div>
+</div>
+</body>
+</html>

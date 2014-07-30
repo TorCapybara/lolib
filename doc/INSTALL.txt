@@ -1,0 +1,78 @@
+*** Setup lolib ***
+
+* Git to clone the repository
+sudo apt-get install git
+
+* Memcache 
+sudo apt-get install memcached
+
+* library for mysql2 gem
+sudo apt-get install libmysqlclient-dev
+
+* library for rmagick gem 
+sudo apt-get install libmagickwand-dev
+
+* library for ffmpeg
+sudo apt-get install ffmpeg
+
+* Clone the repository
+
+When you followed the Guide to setup a whonix instance, at this point you have functioning rails in /var/rails_app
+
+Goto /var/rails_app and clone the lolib project:
+
+git clone https://
+
+cd lolib
+
+* Configure application
+
+* Each Environment (config/environemnts): configure encoder (video) skip IRC settings
+* Create a secrect token (config/environments/secret_token.rb): 128 hex characters (1-9,A-F)
+
+ENV_RAILS=production bundle install
+
+* Setup production Database
+
+CREATE DATABASE (mysql)
+CHANGE CONFIG (config/database.yml)
+
+ENV_RAILS=production rake db:migrate
+ENV_RAILS=production rake db:seed
+
+* Precompile assets
+
+ENV_RAILS=production rake assets:precompile
+
+* Crontask
+
+1.) The crontask checks the links regularly if they are up and calculates uptime for them.
+
+The crontask is a bit tricky, because we need to have the rails enviroment loaded before we can run the rake task,
+for that we have script cron.sh which can be run from the cron and does everything for you.
+
+More details on rvm and cron https://rvm.io/integration/cron
+
+1.) Adapt paths in cron.sh
+2.) crontab -e and add the following entry for a cron run every 20min
+
+*/20 * * * * /var/rails_app/lolib/cron.sh 2>&1 | logger
+
+* delayed job
+
+Go to the application directory 
+
+Start the delayed Job deamon (-n 2 means: two threads running, adjust as needed)
+RAILS_ENV=production bin/delayed_job -n 2 start
+
+Check if the service is runnung
+RAILS_ENV=production bin/delayed_job status
+
+
+# Maintenance
+
+Some ruby scripts which make life easier to maintain are in doc/magic.rb you can load into your production console:
+
+Start Console: rails console production
+
+eval('path_to_magic/magic.rb')

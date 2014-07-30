@@ -1,0 +1,32 @@
+<%= form_for(@link) do |f| %>
+  <% if @link.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@link.errors.count, "error") %> prohibited this link from being saved:</h2>
+
+      <ul>
+      <% @link.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :uri, :class => 'editor-label' %>
+    <%= f.text_field :uri %>
+  </div>
+  <div class="field">
+    <%= f.label :name, :class => 'editor-label' %>
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :description, :class => 'editor-label' %>
+    <%= f.text_field :description %>
+  </div>
+
+  <div class="bottom-feeder clear">
+    <div class="new">
+      <%= f.submit 'Save Link', :class => 'button' %>
+    </div>
+  </div>
+<% end %>

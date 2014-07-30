@@ -1,0 +1,54 @@
+<div class="top-feeder">
+  <h1>Editing user</h1>
+</div>
+
+<%= form_for(@user) do |f| %>
+    <% if @user.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+
+          <ul>
+            <% @user.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+
+    <div class="field">
+      <%= f.label :likes, :class => 'editor-label' %>
+      <%= f.text_field :likes %>
+    </div>
+
+    <div class="field">
+      <%= f.label :tor_chat, :class => 'editor-label' %>
+      <%= f.text_field :tor_chat %>
+    </div>
+
+    <div class="field">
+      <%= f.label :description, :class => 'editor-label' %>
+      <%= f.text_area :description, size: '60x15' %>
+    </div>
+
+    <div class="field">
+      <% if @user.avatar.file %>
+          <%= image_tag(get_avatar_image_path(@user, :avatar), :class => 'border avatar pull-right') %>
+      <% end %>
+      <%= f.label :avatar, :class => 'editor-label' %>
+      <%= f.file_field :avatar %>
+    </div>
+
+    <% if @user.avatar.file %>
+        <div class="field">
+          <%= f.label :remove_avatar, :class => 'editor-label' %>
+          <%= f.check_box :remove_avatar, :style => 'margin: 12px;' %>
+        </div>
+    <% end %>
+
+    <div class="bottom-feeder clear">
+      <div class="new">
+        <%= f.submit 'Change Profile', :class => 'button' %>
+        <%= link_to(fa_icon('fa-times-circle-o') + 'Cancel', @user, :class => 'button') %>
+      </div>
+    </div>
+<% end %>

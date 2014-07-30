@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  referer: MyString
+  count: 1
+  visible: false
+
+two:
+  referer: MyString
+  count: 1
+  visible: false

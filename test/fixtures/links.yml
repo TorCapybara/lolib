@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  uri: MyString
+  last_check: false
+  uptime: 1.5
+  views: 1
+
+two:
+  uri: MyString
+  last_check: false
+  uptime: 1.5
+  views: 1

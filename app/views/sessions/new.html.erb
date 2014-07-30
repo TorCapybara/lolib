@@ -1,0 +1,27 @@
+<% page_heading 'Log in' %>
+
+<div class="top-feeder">
+  <h1>Log in</h1>
+</div>
+
+<%= form_tag sessions_path do %>
+
+  <div class="field">
+    <%= label_tag :name, :name, :class => 'editor-label' %>
+    <%= text_field_tag :name, params[:name] %>
+  </div>
+
+  <div class="field">
+    <%= label_tag :password, :password, :class => 'editor-label' %>
+    <%= password_field_tag :password %>
+  </div>
+
+  <div class="bottom-feeder clear">
+    <div class="new">
+      <%= submit_tag "Log in", :class => 'button' %>
+    </div>
+  </div>
+
+<% end %>
+
+

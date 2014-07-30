@@ -1,0 +1,25 @@
+<h1>Listing videos</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Thread</th>
+      <th>Filename</th>
+      <th>File size</th>
+      <th>Uploaded</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @videos.each do |video| %>
+      <tr>
+        <td><%= link_to video.board_thread.title, video.board_thread %></td>
+        <td><%= video.name %></td>
+        <td><%= number_to_human_size(video.size) %></td>
+        <td><%= video.user.name %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>

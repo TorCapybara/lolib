@@ -1,0 +1,29 @@
+<h1>Editing post</h1>
+
+<%= render 'post_help' %>
+
+<%= form_for([@post]) do |f| %>
+    <% if @post.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@post.errors.count, "error") %> prohibited this board_thread from being saved:</h2>
+
+          <ul>
+            <% @post.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+
+    <div class="field">
+      <%= f.label :text, :class => 'editor-label' %>
+      <%= f.text_area :text, size: '60x15' %>
+    </div>
+
+    <div class="bottom-feeder clear">
+      <div class="new">
+        <%= f.submit 'Save Post', :class => 'button' %>
+        <%= link_to 'Cancel', @board_thread, :class => 'button' %>
+      </div>
+    </div>
+<% end %>

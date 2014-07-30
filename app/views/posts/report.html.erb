@@ -1,0 +1,23 @@
+<% page_heading "Report Post #{@post.id}" %>
+
+<div class="top-feeder">
+  <h1>Report Post #<%= @post.id %></h1>
+</div>
+
+<div class="top-feeder">
+  <%= format_post(@post.text) %>
+</div>
+
+<%= form_for([@report], :html => {:mulitpart => true}) do |f| %>
+    <div class="field">
+      <%= f.label :message, :class => 'editor-label' %>
+      <%= f.text_area :message, size: '60x15', :placeholder => 'Report the problem in this post/thread and what should be changed. The moderators will handle it.' %>
+    </div>
+
+    <div class="bottom-feeder clear">
+      <div class="new">
+        <%= f.hidden_field :post_id %>
+        <%= f.submit 'Report Post', :class => 'button' %>
+      </div>
+    </div>
+<% end %>

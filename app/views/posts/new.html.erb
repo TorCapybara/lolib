@@ -1,0 +1,41 @@
+<% page_heading 'New Post' %>
+
+<div class="top-feeder">
+  <h1>New post</h1>
+</div>
+
+<%= render 'post_help' %>
+
+<%= form_for([@board_thread, @post], :html => {:mulitpart => true}) do |f| %>
+    <% if @post.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@post.errors.count, "error") %> prohibited this post from being saved:</h2>
+
+          <ul>
+            <% @post.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+
+    <div class="field">
+      <%= f.label :text, :class => 'editor-label' %>
+      <%= f.text_area :text, size: '60x15', :placeholder => 'At least 20 characters of text required' %>
+    </div>
+
+    <% if can?(:attach_pictures, @board_thread) %>
+      <div class="field">
+        <%= f.label :images, 'Images (1 or many)', :class => 'editor-label' %>
+        <%= f.file_field :images, :multiple => true, name: "images[]" %>
+      </div>
+    <% end %>
+
+    <div class="bottom-feeder clear">
+      <div class="new">
+        <%= f.hidden_field :board_thread_id %>
+        <%= f.hidden_field :parent_id %>
+        <%= f.submit 'Save Post', :class => 'button' %>
+      </div>
+    </div>
+<% end %>

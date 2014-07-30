@@ -1,0 +1,70 @@
+<nav>
+  <ul>
+    <li><%= fa_icon('fa-angle-double-down') %>Documents
+      <ul class="sub-menu">
+        <li><%= link_to fa_icon('fa-file-text-o') +'All Wiki', wikis_path %></li>
+        <li><%= link_to fa_icon('fa-exclamation-triangle') +'Rules', wiki_path('Rules') %></li>
+      </ul>
+    </li>
+    <% if logged_in? %>
+        <li><%= fa_icon('fa-angle-double-down') %>Search
+          <ul class="sub-menu">
+            <li><%= link_to fa_icon('fa-search') + 'Text Search', search_text_path %></li>
+            <li><%= link_to fa_icon('fa-picture-o') + 'Image Search', search_image_path %></li>
+            <li><%= link_to fa_icon('fa-check-square-o') + 'Fills Search', search_fills_path %></li>
+          </ul>
+        </li>
+        <li><%= fa_icon('fa-angle-double-down') %>Media
+          <ul class="sub-menu">
+            <li><%= link_to fa_icon('fa-picture-o') +'Images', preview_board_threads_path %></li>
+            <li><%= link_to fa_icon('fa-film') +'Videos', videos_path %></li>
+          </ul>
+        </li>
+        <li><%= link_to fa_icon('fa-comments') + 'Boards', name_spaces_path %></li>
+        <li><%= link_to fa_icon('fa-link') +'Links', links_path %></li>
+        <li><%= link_to fa_icon('fa-users') +'Users', users_path %></li>
+        <li>
+          <%= link_to fa_icon('fa-angle-double-down') + 'Profile', profile_path %>
+          <% if current_user.unread_messages > 0 %>
+              <span class="badge"><%= current_user.unread_messages %></span>
+          <% end %>
+          <ul class="sub-menu">
+            <% if can? :read, PrivateMessage %>
+                <li><%= link_to fa_icon('fa-envelope-o') +'PM', private_messages_path %>
+                  <% if current_user.unread_messages > 0 %>
+                      <span class="badge"><%= current_user.unread_messages %></span>
+                  <% end %>
+                </li>
+            <% end %>
+            <li><%= link_to fa_icon('fa-cog') + 'Edit Settings', change_settings_user_path(current_user) %></li>
+            <% if can?(:update, current_user) %>
+                <li><%= link_to fa_icon('fa-user') + 'Edit Profile', edit_user_path(current_user) %></li>
+            <% end %>
+            <% if can?(:change_password, current_user) %>
+                <li><%= link_to fa_icon('fa-key') + 'Change Password', change_password_user_path(current_user) %></li>
+            <% end %>
+            <li><%= link_to fa_icon('fa-list') + 'Your Posts', posts_user_path(current_user) %></li>
+            <li><%= link_to fa_icon('fa-sign-out') + 'Logout', logout_path %></li>
+          </ul>
+        </li>
+        <% if can? :read, Report %>
+            <li><%= fa_icon('fa-angle-double-down') %>Admin
+              <% if Report.open_reports.count > 0 %>
+                  <span class="badge"><%= Report.open_reports.count %></span>
+              <% end %>
+              <ul class="sub-menu">
+                <li>
+                  <%= link_to 'Reports', reports_path %>
+                  <% if Report.open_reports.count > 0 %>
+                      <span class="badge"><%= Report.open_reports.count %></span>
+                  <% end %>
+                </li>
+              </ul>
+            </li>
+        <% end %>
+    <% else %>
+        <li><%= link_to fa_icon('fa-user') + 'Signup', signup_path %></li>
+        <li><%= link_to fa_icon('fa-sign-in') + 'Login', login_path %></li>
+    <% end %>
+  </ul>
+</nav>

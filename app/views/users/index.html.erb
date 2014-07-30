@@ -1,0 +1,37 @@
+<% page_heading 'Users' %>
+
+<div class="top-feeder">
+  <h1>Listing users</h1>
+</div>
+
+<table>
+  <tr>
+    <th><%= sortable 'name' %></th>
+    <th><%= sortable 'posts_count', 'Posts' %></th>
+    <th><%= sortable 'images_count', 'Images' %></th>
+    <th>Invites</th>
+    <th><%= sortable 'tor_chat', 'TorChat' %></th>
+    <th><%= sortable 'likes' %></th>
+    <% if can?(:detail, @user) %>
+        <th><%= sortable 'last_online', "Active" %></th>
+    <% end %>
+  </tr>
+
+<% @users.each do |user| %>
+  <tr>
+    <td><%= link_user user %></td>
+    <td><%= user.posts_count %></td>
+    <td><%= user.images_count %></td>
+    <td><%= user.invitations.count %><span style="color:red;" title="Restricted"><%= user.role.restricted_user? ? '*' : '' %></span></td>
+    <td><%= user.tor_chat %></td>
+    <td><%= user.likes %></td>
+    <% if can?(:detail, @user) %>
+      <td><%= display_time(user.last_online) if user.last_online %> </td>
+    <% end %>
+  </tr>
+<% end %>
+</table>
+
+<div class="bottom-feeder">
+  <%= will_paginate %>
+</div>

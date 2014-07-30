@@ -1,0 +1,15 @@
+<% page_heading 'Threads - Page ' + @page.to_s %>
+<div class="top-feeder">
+  <span class="pull-right">
+    <%= link_to fa_icon('fa-picture-o') + ' Image Preview', preview_board_threads_path, :class => 'button' %>
+    <%= link_to fa_icon('fa-comments') + ' All Boards', name_spaces_path, :class => 'button' %>
+  </span>
+  <h1>Listing Threads</h1>
+</div>
+
+<%= render 'threads', :threads => @board_threads  %>
+
+<div class="bottom-feeder">
+  <%= will_paginate @board_threads , :previous_label => 'Previous Page', :next_label => 'Next Page' %>
+</div>
+

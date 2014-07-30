@@ -1,0 +1,64 @@
+<div class="top-feeder">
+    <span class="pull-right">
+    <%= link_to fa_icon('fa-file-text-o') + ' ' + 'Search by Text', search_text_path, :class => 'button' %>
+  </span>
+
+  <h1>Fills Search</h1>
+</div>
+
+<%= form_tag(search_fills_path, multipart: true) do %>
+    <div class="field">
+      <%= label_tag :verify, "csv, sfv, md5 or sha1 file", :class => 'editor-label' %>
+      <%= file_field_tag :verify %>
+    </div>
+    <div class="field">
+      <%= label_tag :submit, "", :class => 'editor-label' %>
+      <%= submit_tag 'Search', :name => nil, :class => 'button' %>
+    </div>
+<% end %>
+
+<div class="search-result">
+  <% if @results %>
+      <table>
+        <tr>
+          <th>
+            Hash (<%= @hash_type %>)
+          </th>
+          <th>
+            Filename query
+          </th>
+          <th>
+            Filename server
+          </th>
+          <th>
+            Board Thread
+          </th>
+        </tr>
+        <% @results.each do |result| %>
+            <tr>
+              <td>
+                <%= result[:hash] %>
+              </td>
+              <td>
+                <%= result[:local] %>
+              </td>
+              <td>
+                <% if can?(:download, result[:image]) %>
+                    <%= result[:image] ? link_to(result[:image].name, get_image_path(result[:image], :full)) : 'File not found' %>
+                <% else %>
+                    <%= result[:image] ? result[:image].name : 'File not found' %>
+                <% end %>
+              </td>
+              <td>
+                <%= result[:image] ? link_to(result[:image].board_thread.name_space.full_path + ' / ' +result[:image].board_thread.title, result[:image].board_thread) : '' %>
+              </td>
+            </tr>
+        <% end %>
+      </table>
+  <% end %>
+</div>
+
+<div class="bottom-feeder">
+  <% require 'will_paginate/array' %>
+  <%#= will_paginate @results, :params => { :method => :post } %>
+</div>

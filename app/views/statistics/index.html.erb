@@ -1,0 +1,8 @@
+<div class="top-feeder">
+  <h1>Statistics</h1>
+</div>
+
+<% Statistics.counter_types.each do |ct| %>
+    <div><%= link_to ct, statistic_path(ct) %></div>
+<% end %>
+

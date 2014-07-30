@@ -1,0 +1,22 @@
+<% page_heading "Edit Report #{@report.id}" %>
+
+<div class="top-feeder">
+  <h1>Edit Report #<%= @report.id %></h1>
+</div>
+
+<div class="top-feeder">
+  <%= format_post(@report.post.text) %>
+</div>
+
+<%= form_for(@report) do |f| %>
+    <div class="field">
+      <%= f.label :message, :class => 'editor-label' %>
+      <%= f.text_area :message, size: '60x15', :placeholder => 'Report the problem in this post/thread and what should be changed. The moderators will handle it.' %>
+    </div>
+
+    <div class="bottom-feeder clear">
+      <div class="new">
+        <%= f.submit 'Update Post', :class => 'button' %>
+      </div>
+    </div>
+<% end %>

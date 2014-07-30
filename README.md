@@ -21,18 +21,41 @@ lolib has been written for the use on Tor hidden services, with anonymity and se
 Threaded
 ========
 
-Like classis image boards it is completley hierarchical also the threads.
+Like classic image boards it is completley hierarchical also the threads.
 
 Features
 ========
 
 * Role based access control
+* Basic acess for restricted users
 * Image upload and processing
+* Video upload and processing (ffmpeg / avconv)
 * Threaded discussions
 * Efficent zip downloads
+* Efficient high number thumbnailing (upto 2000)
 * JavaScript Free
 * Multiple Image Upload (HTML 5)
 * Wiki pages
-* Link pages
-* Duplicate search / Image search
-* Fulltext search
+* Link pages (check reachability cron)
+* Duplicate search / Image search / Collection search
+* support (e)csv, sfv, md5, sha1
+* Basic Fulltext search
+* Thread reporting
+* Modern CSS 3 interface (with fallback)
+
+Install
+=======
+
+Please refer to the doc directory. A step for step installation guide for a secure tor service and for the web service are available.
+
+Basic understanding of rails is required.
+
+License
+=======
+
+The icons are licensed as CC 
+The source is licensed as GPL 3
+
+For details please refer to the license documents included in the doc directory.
+
+It would be nice if you would make a ticket if you create something based on lol*IB*.

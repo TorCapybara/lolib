@@ -1,0 +1,40 @@
+<% page_heading 'Reported Posts' %>
+
+<div class="top-feeder">
+  <h1>Reported Posts</h1>
+</div>
+
+<table>
+  <tr>
+    <th>Report</th>
+    <th>Post</th>
+    <th>Reported by</th>
+    <th>Handled</th>
+  </tr>
+  <% @reports.each do |report| %>
+      <tr>
+        <td>
+          <%= link_to 'Report #' + report.id.to_s, report %>
+        </td>
+        <td>
+          <% if report.post and report.post.board_thread %>
+            <%= link_to report.post.board_thread.title, link_to_post_in_thread(report.post)  %>
+          <% else %>
+            <strike><%= "posts/#{report.post_id}" %> </strike>
+          <% end %>
+        </td>
+        <td>
+          <%= link_to report.reporter.name, report.reporter  %>
+        </td>
+        <td>
+          <%= report.handled ? fa_icon('fa-check-square-o') : fa_icon('fa-square-o') %>
+        </td>
+      </tr>
+  <% end %>
+</table>
+
+<% if will_paginate @private_messages %>
+    <div class="bottom-feeder">
+      <%= will_paginate @private_messages %>
+    </div>
+<% end %>

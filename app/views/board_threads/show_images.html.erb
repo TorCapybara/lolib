@@ -1,0 +1,37 @@
+<div class="thread">
+
+  <div class="top-feeder">
+    <span class="pull-right">
+      <%= link_to fa_icon('fa-comments') + ' ' + 'Show Complete Thread', board_thread_path(@board_thread), :class => 'button' %>
+      <%= link_to fa_icon('fa-link') + ' ' + 'Links to Images', links_board_thread_path(@board_thread), :class => 'button' %>
+      <%= fa_icon('fa-download') + 'free'  if @board_thread.free_download %>
+    </span>
+
+    <h1><%= @board_thread.title %></h1>
+  </div>
+
+  <% @board_thread.posts.each do |post| %>
+      <% post.images.each_with_index do |image, index| %>
+          <%= link_to('', image, :class => image.class_thumbs + " spr-bt spr#{post.image_offset + index}") %></td>
+      <% end %>
+  <% end %>
+
+  <% if @board_thread.images_count == 0 %>
+      No Pictures :(
+  <% end %>
+
+  <div class="bottom-feeder">
+    <div class="new">
+      <% if can? :download, @board_thread %>
+          <%= link_to fa_icon('fa-download') + ' ' + 'as .zip', zip_board_thread_path(@board_thread), :class => 'button' %>
+      <% end %>
+      <%= pluralize(@board_thread.images_count, 'Picture') %>
+      <% if File.exist? @board_thread.zip_file_name %>
+          <%= fa_icon('fa-check-circle') + ' ' + number_to_human_size(File.size(@board_thread.zip_file_name)) %>
+      <% else %>
+          <%= fa_icon('fa-time-circle') %>
+      <% end %>
+    </div>
+  </div>
+</div>
+

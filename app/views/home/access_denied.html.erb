@@ -1,0 +1,19 @@
+<% page_heading '403 - Access Denied' %>
+
+<div class="top-feeder">
+  <h1>403 - Access Denied</h1>
+</div>
+
+<p> You don't have access to the page you requested.</p>
+
+<p>You may have forgotten to log in, or the page you requsted is not available to you.</p>
+
+<p>Mobile devices as Android, iOS and similar devices are blocked from the page. Please use a more secure operating
+  System to access the page.</p>
+
+<div class="bottom-feeder clear">
+  <div class="new">
+    <%= link_to fa_icon('fa-home') +'Home', root_path, :class => 'button' %>
+    <%= link_to fa_icon('fa-sign-in') +'Log in', login_path, :class => 'button' %>
+  </div>
+</div>

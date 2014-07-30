@@ -1,0 +1,264 @@
+/* Extends Base
+ *
+ * Add Features: border-radius, some effects, opacity
+ *
+ */
+
+#main {
+  border-radius: 1em;
+}
+
+.field input {
+  border-radius: 0.7em;
+}
+
+.border {
+  -moz-border-radius: 0.2em;
+  -webkit-border-radius: 0.2em;
+  border-radius: 0.2em;
+}
+
+table {
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+}
+
+table tr:first-child th:first-child {
+  -moz-border-radius-topleft: 3px;
+  -webkit-border-top-left-radius: 3px;
+  border-top-left-radius: 3px;
+}
+
+table tr:first-child th:last-child {
+  -moz-border-radius-topright: 3px;
+  -webkit-border-top-right-radius: 3px;
+  border-top-right-radius: 3px;
+}
+
+table tr:last-child td:first-child {
+  -moz-border-radius-bottomleft: 3px;
+  -webkit-border-bottom-left-radius: 3px;
+  border-bottom-left-radius: 3px;
+}
+
+table tr:last-child td:last-child {
+  -moz-border-radius-bottomright: 3px;
+  -webkit-border-bottom-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+}
+
+#header {
+  border-top-left-radius: 1em;
+  border-top-right-radius: 1em;
+}
+
+nav ul li {
+  -moz-border-radius: 2em;
+  -webkit-border-radius: 2em;
+  border-radius: 2em;
+}
+
+nav ul li ul {
+  visibility: hidden;
+}
+
+nav ul li ul li {
+  text-shadow: 0 -1px 0 #000;
+}
+
+nav ul li:hover ul {
+  visibility: visible;
+}
+
+#breadcrumbs ul li {
+  margin: 0 .5em .5em 1em;
+}
+
+#breadcrumbs ul a::before,
+#breadcrumbs ul a::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 1em;
+  background: #ddd;
+  transform: skew(-10deg);
+}
+
+#breadcrumbs ul a::before {
+
+  left: -.5em;
+  border-radius: 0.5em 0 0 0.5em;
+}
+
+#breadcrumbs ul a:hover::before {
+  background: #efc9ab;
+}
+
+#breadcrumbs ul a::after {
+  right: -.5em;
+  border-radius: 0 0.5em 0.5em 0;
+}
+
+#breadcrumbs ul a:hover::after {
+  background: #efc9ab;
+}
+
+#breadcrumbs ul .current::after,
+#breadcrumbs ul .current::before {
+  content: normal;
+}
+
+#sidebar {
+  border-radius: 1em;
+}
+
+#sidebar h1 {
+  margin: 0 -1.5em 1em -1.5em;
+}
+
+#sidebar h1:before, h1:after {
+  content: '';
+  position: absolute;
+  border-style: solid;
+  border-color: transparent;
+  bottom: -1em;
+}
+
+#sidebar h1:before {
+  border-width: 0 1em 1em 0;
+  border-right-color: #222;
+  left: 0;
+}
+
+#sidebar h1:after {
+  border-width: 0 0 1em 1em;
+  border-left-color: #222;
+  right: 0;
+}
+
+#main-content {
+  border-radius: 1em;
+}
+
+#footer {
+  border-bottom-left-radius: 1em;
+  border-bottom-right-radius: 1em;
+}
+
+.search-result .node {
+  border-radius: 1em;
+}
+
+ul.tree div.node {
+  border-radius: 1em;
+}
+
+.pagination .previous_page a {
+  border-radius: 15px;
+}
+
+.pagination .next_page a {
+  border-radius: 15px;
+}
+
+.badge {
+  border-radius: 10px;
+}
+
+.image-effects a {
+  padding: 0px;
+  margin: 0;
+  display: block;
+}
+
+.image-effects img {
+  vertical-align: top;
+}
+
+.image-effects .previous {
+  display: block;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+}
+
+.image-effects .next {
+  display: block;
+  position: absolute;
+  right: 0px;
+  top: 0px;
+}
+
+.image-effects .previous a {
+  padding: 20px;
+  color: white;
+  opacity: 0;
+  border-bottom-right-radius: 50px;
+  background-color: #444;
+}
+
+.image-effects .next a {
+  padding: 20px;
+  color: white;
+  opacity: 0;
+  border-bottom-left-radius: 50px;
+  background-color: #444;
+}
+
+.image-effects .previous a:hover, .image-effects .next a:hover {
+  opacity: 1;
+}
+
+.image-effects .caption {
+  display: block;
+  position: absolute;
+  bottom: 10px;
+  text-align: center;
+  background-color: white;
+  left: 0;
+  right: 0;
+  height: 50px;
+  padding: 10px;
+  opacity: 0;
+  border-top: 10px solid #cccccc;
+  border-bottom: 10px solid #cccccc;
+}
+
+.image-effects .caption:hover {
+  opacity: 1;
+}
+
+.image-preview {
+  border-radius: 10px;
+}
+
+.announcement li {
+  border-radius: 5px;
+}
+
+.report {
+  background-color: #ffa;
+  padding: 1em;
+}
+
+.help-expander {
+  border-radius: 5px;
+}
+
+.warning {
+  border-radius: 3px;
+}
+
+.rating {
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  border-radius: 8px;
+}
+
+legend {
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+}

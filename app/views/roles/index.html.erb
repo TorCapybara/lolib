@@ -1,0 +1,16 @@
+<% page_heading 'Roles' %>
+
+<div class="top-feeder">
+  <h1>Roles</h1>
+</div>
+
+<table>
+  <tr>
+    <th>Role</th>
+  </tr>
+  <% @roles.each do |role| %>
+    <tr>
+      <td><%= link_to role.name, role %></td>
+    </tr>
+  <% end %>
+</table>

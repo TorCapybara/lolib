@@ -1,0 +1,101 @@
+<% page_heading @image.name %>
+
+<div class="top-feeder">
+  <span class="pull-right"><%= @image.views %> Views &nbsp;</span>
+
+  <h1><%= @image.name %></h1>
+</div>
+
+<div class="center">
+  <div class="image-effects image border">
+    <% if @image.previous %>
+        <span class="previous"><%= link_to fa_icon('fa-arrow-circle-left fa-4x'), @image.previous %></span>
+    <% end %>
+    <%= link_to(image_tag(get_image_path(@image, :design)), get_image_path(@image, :full)) %>
+    <% if @image.next %>
+        <span class="next"><%= link_to fa_icon('fa-arrow-circle-right fa-4x'), @image.next %></span>
+    <% end %>
+    <div class="caption">
+      <%= @image.name.to_s %>
+      <br>
+      <%= @image.processed ? '' : 'Image not yet processed' %>
+      <br>
+      <%= 'Free Download' if @image.board_thread.free_download %>
+    </div>
+  </div>
+</div>
+<div class="clear"></div>
+
+<div class="bottom-feeder" style="text-align: center">
+  <table>
+    <tr>
+      <td class="key">Uploaded by:</td>
+      <td><%= link_user @image.post.user %></td>
+      <td class="key">MD5:</td>
+      <td><%= @image.md5_digest %></td>
+    </tr>
+    <tr>
+      <td class="key">Uploaded in:</td>
+      <td><%= link_to @image.post.board_thread ? @image.post.board_thread.title : 'None', @image.post.board_thread %></td>
+      <td class="key">SHA1:</td>
+      <td><%= @image.sha1_digest %></td>
+    </tr>
+    <tr>
+      <td class="key">Filesize:</td>
+      <td><%= number_to_human_size(@image.image.size) %></td>
+      <td class="key">CRC32:</td>
+      <td><%= @image.crc32 %></td>
+    </tr>
+    <tr>
+      <td class="key">Dimensions:</td>
+      <td><%= @r_image[0].columns %> x <%= @r_image[0].rows %></td>
+      <td class="key">EXIF:</td>
+      <td><%= @image.exif == nil ? 'not cached yet' : @image.exif ? 'yes' : 'no' %></td>
+    </tr>
+    <% if @image.exif %>
+        <tr>
+          <td class="key">Created at:</td>
+          <td><%= @image.exif_created_at %></td>
+          <td class="key">Camera:</td>
+          <td><%= @image.exif_camera %></td>
+        </tr>
+        <tr>
+          <td class="key">Exposure:</td>
+          <td><%= @image.exif_exposure %>s</td>
+          <td class="key">F-Stop:</td>
+          <td>F<%= @image.exif_f_stop %></td>
+        </tr>
+    <% end %>
+  </table>
+</div>
+
+<div class="bottom-feeder clear">
+  <div class="new">
+    <% if can? :delete, @image %>
+        <%= link_to fa_icon('fa-eraser') + 'Delete Image', "#delete-image-modal-#{@image.id}", :class => 'button danger' %>
+        <section class="semantic-content" id="delete-image-modal-<%= @image.id %>" tabindex="-1" role="dialog" aria-labelledby="modal-label" aria-hidden="true">
+          <div class="modal-inner">
+            <header><h1>Are you sure you want to delete this image?</h1></header>
+            <div class="modal-content">This action will delete this image without deleting the post or other images.</div>
+            <footer>
+              <div style="text-align: right; margin-top: 1em;">
+                <%= form_for(@image, :html => {:method => :delete}) do |f| %>
+                    <%= button_tag fa_icon('fa-eraser') +'Delete Image', :class => 'button danger' %>
+                    <%= link_to fa_icon('fa-times-circle-o') +'Cancel', '#!', :class => 'button' %>
+                <% end %>
+              </div>
+            </footer>
+          </div>
+          <a href="#!" class="modal-close" title="Close this modal" data-close="Close" data-dismiss="modal">×</a>
+        </section>
+    <% end %>
+    <% if can? :edit, @image %>
+        <%= link_to fa_icon('fa-pencil') + 'Edit Image', edit_image_path, :class => 'button' %>
+    <% end %>
+    <%= form_tag(search_image_path, multipart: true, style: 'display: inline;') do %>
+        <%= hidden_field_tag :hashes, @image.sha1_digest %>
+        <%= label_tag :submit, "", :class => 'editor-label' %>
+        <%= submit_tag 'Search Duplicates', :name => nil, :class => 'button' %>
+    <% end %>
+  </div>
+</div>

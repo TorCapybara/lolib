@@ -1,0 +1,54 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Board thread:</strong>
+  <%= @video.board_thread_id %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @video.user_id %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @video.name %>
+</p>
+
+<p>
+  <strong>Video:</strong>
+  <%= @video.video %>
+</p>
+
+<p>
+  <strong>Url:</strong>
+  <%= @video.url %>
+</p>
+
+<p>
+  <strong>Size:</strong>
+  <%= @video.size %>
+</p>
+
+<p>
+  <strong>Sha1:</strong>
+  <%= @video.sha1 %>
+</p>
+
+<p>
+  <strong>Md5:</strong>
+  <%= @video.md5 %>
+</p>
+
+<p>
+  <strong>Contact sheet:</strong>
+  <%= @video.contact_sheet %>
+</p>
+
+<p>
+  <strong>Length:</strong>
+  <%= @video.length %>
+</p>
+
+<%= link_to 'Edit', edit_video_path(@video) %> |
+<%= link_to 'Back', videos_path %>

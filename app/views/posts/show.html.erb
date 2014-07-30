@@ -1,0 +1,14 @@
+<% page_heading "Post #{@post.id}" %>
+
+<div class="top-feeder">
+  <h1>Post #<%= @post.id %></h1>
+</div>
+
+<%= render 'post', :post => @post %>
+
+<div class="bottom-feeder">
+   <div class="new">
+     <%= link_to "Back to Thread", board_thread_path(@post.board_thread), :class => 'button' %>
+  </div>
+</div>
+

@@ -1,0 +1,8 @@
+<% if @breadcrumbs %>
+    <% @breadcrumbs.each do |description, link| %>
+        <li><%= link_to raw(description), link %></li>
+    <% end %>
+<% else %>
+    <li><%= link_to raw('EMPTY BREADCRUMBS'), '' %></li>
+<% end %>
+

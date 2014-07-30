@@ -1,0 +1,37 @@
+<div class="top-feeder">
+    <span class="pull-right">
+    <%= link_to fa_icon('fa-file-text-o') + ' ' + 'Search by Text', search_text_path, :class => 'button' %>
+  </span>
+  <h1>Image Search</h1>
+</div>
+
+<%= form_tag(search_image_path, multipart: true) do %>
+  <div class="field">
+    <%= label_tag :images, "Images (1 or many)",:class => 'editor-label' %>
+    <%= file_field_tag :images, :multiple => true, name: "images[]" %>
+  </div>
+  <div class="field">
+    <%= label_tag :hashes, "Sha1 Hashes (CSV)", :class => 'editor-label' %>
+    <%= text_area_tag :hashes, @search, size: '60x2' %>
+  </div>
+  <div class="field">
+    <%= label_tag :submit, "", :class => 'editor-label' %>
+    <%= submit_tag 'Search', :name => nil, :class => 'button' %>
+  </div>
+<% end %>
+
+<div class="search-result">
+  <% if @results %>
+      Search result for: <%= @search %>
+      <% @results.each do |result| %>
+          <% if can? :read, result %>
+            <%= render partial: 'result', locals: {result:  result} %>
+          <% end %>
+      <% end %>
+  <% end %>
+</div>
+
+<div class="bottom-feeder">
+  <% require 'will_paginate/array' %>
+  <%#= will_paginate @results, :params => { :method => :post } %>
+</div>

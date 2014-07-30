@@ -1,0 +1,112 @@
+$avatar-size: 100px;
+
+.ch-item {
+  width: $avatar-size;
+  height: $avatar-size;
+  border-radius: $avatar-size / 2;
+  position: relative;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+  cursor: default;
+}
+
+.ch-info-wrap{
+  position: absolute;
+  width: $avatar-size;
+  height: $avatar-size;
+  border-radius: $avatar-size / 2;
+  perspective: 800px;
+  transition: all 0.4s ease-in-out;
+  top: 0px;
+  left: 0px;
+  background: #f00 url(/images/362/get/design);
+  box-shadow:
+  0 0 0 20px rgba(255,255,255,0.2),
+  inset 0 0 3px rgba(115,114, 23, 0.8);
+
+}
+
+.ch-info{
+  position: absolute;
+  width: $avatar-size;
+  height: $avatar-size;
+  border-radius: $avatar-size / 2;
+  transition: all 0.4s ease-in-out;
+  transform-style: preserve-3d;
+}
+
+.ch-info > div {
+  display: block;
+  position: absolute;
+  width: $avatar-size;
+  height: $avatar-size;
+  border-radius: $avatar-size / 2;
+  background-position: center center;
+  backface-visibility: hidden;
+}
+
+.ch-info .ch-info-back {
+  transform: rotate3d(0,1,0,180deg);
+  background: #000;
+}
+
+.ch-img-1 {
+  background-image: url(/images/3/avatar/avatar);
+}
+
+.ch-img-2 {
+  background-image: url(../images/11.jpg);
+}
+
+.ch-img-3 {
+  background-image: url(../images/12.jpg);
+}
+
+.ch-info h3 {
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: 14px;
+  margin: 0 15px;
+  padding: 40px 0 0 0;
+  height: 90px;
+  font-family: 'Open Sans', Arial, sans-serif;
+  text-shadow:
+  0 0 1px #fff,
+  0 1px 2px rgba(0,0,0,0.3);
+}
+
+.ch-info p {
+  color: #fff;
+  padding: 10px 5px;
+  font-style: italic;
+  margin: 0 30px;
+  font-size: 12px;
+  border-top: 1px solid rgba(255,255,255,0.5);
+}
+
+.ch-info p a {
+  display: block;
+  color: rgba(255,255,255,0.7);
+  font-style: normal;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 9px;
+  letter-spacing: 1px;
+  padding-top: 4px;
+  font-family: 'Open Sans', Arial, sans-serif;
+}
+
+.ch-info p a:hover {
+  color: rgba(255,242,34, 0.8);
+}
+
+.ch-item:hover .ch-info-wrap {
+  box-shadow:
+  0 0 0 0 rgba(255,255,255,0.8),
+  inset 0 0 3px rgba(115,114, 23, 0.8);
+}
+
+.ch-item:hover .ch-info {
+  transform: rotate3d(0,1,0,-180deg);
+}
+

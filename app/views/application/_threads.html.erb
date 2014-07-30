@@ -1,0 +1,185 @@
+<table>
+  <tr>
+    <th><%= sortable 'title' %></th>
+    <th>Images Only</th>
+    <th>P / <%= sortable 'views', 'V' %></th>
+    <th><%= sortable 'created_at', 'Created' %></th>
+    <th><%= sortable 'updated_at', 'Updated' %></th>
+    <th>Status</th>
+  </tr>
+  <% if (defined?(stickies)) and stickies %>
+      <% stickies.each do |thread| %>
+          <% if can?(:read, thread) %>
+              <tr>
+                <td>
+                  <div><%= link_to thread.title, thread %></div>
+                  <%= link_to thread.name_space.full_path, thread.name_space %>
+                </td>
+                <td>
+                  <div><%= link_to "#{thread.images_count} Images", images_board_thread_path(thread) %></div>
+                  <%= link_to "Links", links_board_thread_path(thread) %>
+                </td>
+                <td>
+                  <div><%= thread.posts_count %></div>
+                  <%= thread.views %>
+                </td>
+                <td>
+                  <div><%= thread.posts.any? ? link_user(thread.posts.first.user) : 'empty' %></div>
+                  <%= display_time(thread.created_at) %>
+                </td>
+                <td>
+                  <div><%= thread.posts.any? ? link_user(thread.posts.last.user) : 'empty' %></div>
+                  <%= display_time(thread.updated_at) %>
+                </td>
+                <td>
+                  <% if thread.sticky %>
+                      <em class="tooltip-container">
+                        <%= fa_icon('fa-thumb-tack fa-lg') %>
+                        <span class="tooltip tooltip-style1">
+                      Sticky Thread
+                    </span>
+                      </em>
+                  <% end %>
+                  <% if thread.picture_freeze %>
+                      <em class="tooltip-container">
+                        <%= fa_icon('fa-ban fa-lg') %>
+                        <span class="tooltip tooltip-style1">
+                      Frozen, no more pictures can be added
+                    </span>
+                      </em>
+                  <% end %>
+                  <% if thread.closed %>
+                      <em class="tooltip-container">
+                        <%= fa_icon('fa-lock fa-lg') %>
+                        <span class="tooltip tooltip-style1">
+                      Closed, no more posts can be added
+                    </span>
+                      </em>
+                  <% end %>
+                  <% if thread.announced %>
+                      <em class="tooltip-container">
+                        <%= fa_icon('fa-bullhorn fa-lg') %>
+                        <span class="tooltip tooltip-style1">
+                        Announced Thread
+                      </span>
+                      </em>
+                  <% end %>
+                  <% if thread.index %>
+                      <em class="tooltip-container">
+                        <%= fa_icon('fa-info fa-lg') %>
+                        <span class="tooltip tooltip-style1">
+                      Free Download for restricted users
+                    </span>
+                      </em>
+                  <% end %>
+                  <% if thread.free_download %>
+                      <em class="tooltip-container">
+                        <%= fa_icon('fa-download fa-lg') %>
+                        <span class="tooltip tooltip-style1">
+                      Indexed Set
+                    </span>
+                      </em>
+                  <% end %>
+                  <% if thread.video %>
+                      <em class="tooltip-container">
+                        <%= fa_icon('fa-video-camera fa-lg') %>
+                        <span class="tooltip tooltip-style1">
+                      Video Thread
+                    </span>
+                      </em>
+                  <% end %>
+                </td>
+              </tr>
+          <% end %>
+      <% end %>
+  <% end %>
+
+
+  <% if threads %>
+      <% threads.each do |thread| %>
+          <% if can?(:read, thread) %>
+              <tr>
+                <td>
+                  <div><%= link_to thread.title, thread %></div>
+                  <%= link_to thread.name_space.full_path, thread.name_space %>
+                </td>
+                <td>
+                  <div><%= link_to "#{thread.images_count} Images", images_board_thread_path(thread) %></div>
+                  <%= link_to "Links", links_board_thread_path(thread) %>
+                </td>
+                <td>
+                  <div><%= thread.posts_count %></div>
+                  <%= thread.views %>
+                </td>
+                <td>
+                  <div><%= thread.posts.any? ? link_user(thread.posts.first.user) : 'empty' %></div>
+                  <%= display_time(thread.created_at) %>
+                </td>
+                <td>
+                  <div><%= thread.posts.any? ? link_user(thread.posts.last.user) : 'empty' %></div>
+                  <%= display_time(thread.updated_at) %>
+                </td>
+                <td>
+                  <% if thread.sticky %>
+                      <em class="tooltip-container">
+                        <%= fa_icon('fa-thumb-tack fa-lg') %>
+                        <span class="tooltip tooltip-style1">
+                      Sticky Thread
+                    </span>
+                      </em>
+                  <% end %>
+                  <% if thread.picture_freeze %>
+                      <em class="tooltip-container">
+                        <%= fa_icon('fa-ban fa-lg') %>
+                        <span class="tooltip tooltip-style1">
+                      Frozen, no more pictures can be added
+                    </span>
+                      </em>
+                  <% end %>
+                  <% if thread.closed %>
+                      <em class="tooltip-container">
+                        <%= fa_icon('fa-lock fa-lg') %>
+                        <span class="tooltip tooltip-style1">
+                      Closed, no more posts can be added
+                    </span>
+                      </em>
+                  <% end %>
+                  <% if thread.announced %>
+                      <em class="tooltip-container">
+                        <%= fa_icon('fa-bullhorn fa-lg') %>
+                        <span class="tooltip tooltip-style1">
+                      Announced Thread
+                    </span>
+                      </em>
+                  <% end %>
+                  <% if thread.index %>
+                      <em class="tooltip-container">
+                        <%= fa_icon('fa-info fa-lg') %>
+                        <span class="tooltip tooltip-style1">
+                      Indexed Set
+                    </span>
+                      </em>
+                  <% end %>
+                  <% if thread.free_download %>
+                      <em class="tooltip-container">
+                        <%= fa_icon('fa-download fa-lg') %>
+                        <span class="tooltip tooltip-style1">
+                      Free Download for restricted users
+                    </span>
+                      </em>
+                  <% end %>
+                  <% if thread.video %>
+                      <em class="tooltip-container">
+                        <%= fa_icon('fa-video-camera fa-lg') %>
+                        <span class="tooltip tooltip-style1">
+                      Video Thread
+                    </span>
+                      </em>
+                  <% end %>
+                </td>
+              </tr>
+          <% end %>
+      <% end %>
+  <% end %>
+</table>
+

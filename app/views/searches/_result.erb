@@ -1,0 +1,23 @@
+<div class="node search-result">
+  <% if result.is_a? BoardThread %>
+      <% board_thread = result %>
+      <% text = truncate(result.posts.first.text, length: 500) %>
+  <% else %>
+    <% board_thread = result.board_thread %>
+    <% text = truncate(result.text, length: 500) %>
+  <% end %>
+
+  <h2><%= board_thread.name_space.full_path %> /
+    <small><%= link_to(board_thread.title, board_thread) %></small>
+  </h2>
+  <% result.image_sample.reverse_each do |image| %>
+      <%= image_tag(get_image_path(image, :thumb), :class => 'thumb border pull-right') %>
+  <% end %>
+  <p>
+    <%= link_to(board_thread_path(board_thread) + '#post-' + result.id.to_s) do %>
+        <%= text %>
+    <% end %>
+  </p>
+
+  <div class="clear-right"></div>
+</div>

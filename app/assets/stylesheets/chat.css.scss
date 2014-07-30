@@ -1,0 +1,242 @@
+html {
+  margin: 0px;
+  padding: 0px;
+}
+
+body {
+  margin: 0px;
+  padding: 0px;
+  background-color: white;
+  color: black;
+  font-family: Verdana, Arial, sans-serif;
+  font-size: 12px;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+td {
+  vertical-align: top;
+  padding: 3px 5px;
+}
+
+td img {
+  vertical-align: middle;
+}
+
+.time {
+  color: gray;
+  background-color: rgb(247,247,247);
+}
+
+div.highlight {
+  display: table-cell;
+  border: 1px dotted #552;
+  padding: 1px;
+  background-color: #ffffe1;
+}
+
+span.highlight {
+  border: 1px dotted #552;
+  padding: 1px;
+  background-color: #ffffe1;
+}
+
+.self {
+  color: #009;
+  background-color: rgb(247,247,247);
+  text-align: right;
+}
+
+.self-message {
+  font-weight: bolder;
+}
+
+.sender {
+  color: #900;
+  background-color: rgb(247,247,247);
+  text-align: right;
+}
+
+.sender-message {
+}
+
+.join {
+  color: #090;
+  background-color: rgb(247,247,247);
+  text-align: right;
+}
+
+.join-message {
+  color: #090;
+}
+
+.leave {
+  color: #090;
+  background-color: rgb(247,247,247);
+  text-align: right;
+}
+
+.leave-message {
+  color: #090;
+}
+
+.nick {
+  color: #090;
+  background-color: rgb(247,247,247);
+  text-align: right;
+}
+
+.nick-message {
+  color: #090;
+}
+
+.operator {
+  color: #090;
+  background-color: rgb(247,247,247);
+  text-align: right;
+}
+
+.operator-message {
+  color: #090;
+}
+
+.voiced {
+  color: #090;
+  background-color: rgb(247,247,247);
+  text-align: right;
+}
+
+.voiced-message {
+  color: #090;
+}
+
+.disconnect {
+  color: #090;
+  background-color: rgb(247,247,247);
+  text-align: right;
+}
+
+.disconnect-message {
+  color: #090;
+}
+
+.self-action {
+  background-color: rgb(247,247,247);
+  text-align: right;
+}
+
+.self-action-message {
+  color: #909;
+}
+
+.action {
+  background-color: rgb(247,247,247);
+  text-align: right;
+}
+
+.action-message {
+  color: #909;
+}
+
+.whois {
+  width:	6em;
+  color: gray;
+  background-color: rgb(247,247,247);
+  text-align: right;
+}
+
+.whois-message {
+  color: gray;
+}
+
+.status {
+  width:	6em;
+  color: gray;
+  background-color: rgb(247,247,247);
+  text-align: right;
+}
+
+.status-message {
+  color: gray;
+}
+
+.topic {
+  width:	6em;
+  color: gray;
+  background-color: rgb(247,247,247);
+  text-align: right;
+}
+
+.topic-message {
+  color: gray;
+}
+
+.moderated {
+  width:	6em;
+  color: gray;
+  background-color: rgb(247,247,247);
+  text-align: right;
+}
+
+.moderated-message {
+  color: gray;
+}
+
+.limit {
+  width:	6em;
+  color: gray;
+  background-color: rgb(247,247,247);
+  text-align: right;
+}
+
+.limit-message {
+  color: gray;
+}
+
+.topic-protection {
+  width:	6em;
+  color: gray;
+  background-color: rgb(247,247,247);
+  text-align: right;
+}
+
+.topic-protection-message {
+  color: gray;
+}
+
+.password {
+  width:	6em;
+  color: gray;
+  background-color: rgb(247,247,247);
+  text-align: right;
+}
+
+.password-message {
+  color: gray;
+}
+
+.secret {
+  width:	6em;
+  color: gray;
+  background-color: rgb(247,247,247);
+  text-align: right;
+}
+
+.secret-message {
+  color: gray;
+}
+
+.unknown-mode {
+  width:	6em;
+  color: gray;
+  background-color: rgb(247,247,247);
+  text-align: right;
+}
+
+.unknown-mode-message {
+  color: gray;
+}
+
+td:first-child + td { white-space: nowrap; }

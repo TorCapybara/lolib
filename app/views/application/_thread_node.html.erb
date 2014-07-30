@@ -1,0 +1,12 @@
+<% if posts.count > 0 %>
+    <ul class="tree">
+      <% posts.each do |post| %>
+          <li>
+            <div class="node">
+              <%= render 'post', :post => post  %>
+            </div>
+            <%= render 'thread_node', :posts => post.child_posts  %>
+          </li>
+      <% end %>
+    </ul>
+<% end %>

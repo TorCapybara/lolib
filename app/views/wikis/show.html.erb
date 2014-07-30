@@ -1,0 +1,25 @@
+<% page_heading @wiki.name %>
+
+<div class="top-feeder">
+  <h1>
+    <%= @wiki.name %>
+  </h1>
+</div>
+
+<div class="wiki">
+  <%= raw @html_content %>
+</div>
+
+<div class="bottom-feeder clear">
+  <div class="new">
+    <b>Last Author: </b><%= link_user @revision.user %>
+    <br>
+    <%= link_to fa_icon('fa-bars') + 'Index', wikis_path, :class => 'button' %>
+    <% if can?(:update, @wiki) %>
+      <%= link_to fa_icon('fa-plus') + 'Make new revision', edit_wiki_path, :class => 'button' %>
+    <% end %>
+    <% if can?(:delete, @wiki) %>
+      <%= link_to fa_icon('fa-eraser') + 'Delete revision', root_path, :class => 'button' %>
+    <% end %>
+  </div>
+</div>

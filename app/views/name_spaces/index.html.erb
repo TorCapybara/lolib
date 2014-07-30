@@ -1,0 +1,31 @@
+<% page_heading 'Boards' %>
+
+<div class="top-feeder">
+  <span class="pull-right">
+        <% if @state == 'open' %>
+            <%= link_to fa_icon('fa-folder') + ' ' + 'Collapse All', name_spaces_path, :class => 'button' %>
+        <% else %>
+            <%= link_to fa_icon('fa-folder-open') + ' ' + 'Expand All', {:state => :open}, :class => 'button' %>
+        <% end %>
+  </span>
+
+  <h1>Board Listing</h1>
+</div>
+
+<div style="clear:both"></div>
+
+<% ns_roots = NameSpace.where('parent_id is NULL').order('sort_order ASC') %>
+<%= render 'name_space_node', :name_spaces => ns_roots, :state => @state %>
+
+<div class="bottom-feeder">
+  <div class="new">
+    <% if can? :create, NameSpace %>
+        <%= link_to fa_icon('fa-plus') + ' ' + 'New top-level board', new_name_space_path, :class => 'button' %>
+        <% if @state == 'open' %>
+            <%= link_to fa_icon('fa-folder') + ' ' + 'Collapse All', name_spaces_path, :class => 'button' %>
+        <% else %>
+            <%= link_to fa_icon('fa-folder-open') + ' ' + 'Expand All', {:state => :open}, :class => 'button' %>
+        <% end %>
+    <% end %>
+  </div>
+</div>

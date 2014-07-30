@@ -1,0 +1,70 @@
+Changes for Version 0.11
+
+* The Post Menu is collapsed, click on 'xx time ago' to open it 
+* Single Post view works again (which also fixes the 500 error on image delete) 
+* New Buttons (smaller and same look on button or link) 
+* Checking User agent: Announcements / Android / iPhone Users    
+* You can link users now: User / Capybara  same linking technique as usual. Not documented yet. 
+* The posts menu is now collapsed! 
+* EXIF Data comes from DB directly now (Task still running) 
+* Boards: expand all
+* Warnings finally can be edited (BUG fixed) 
+* Reports can be edited in the Admin interface. 
+* Moderators can now move posts (very simple interface, recursive, based on the command line, same tools I use) 
+* Modal interface for deleting images, posts, board_threads (faster) 
+* Modal interface for moving posts (new) 
+* Access to user data fixed 
+* Empty threads are not crashing Thread-Lists.
+* Asset pipeline fixed (big step into the direction of an Open Source release) 
+* Font awesome updated to version 4.1 
+* CSS to load Font awesome with local() 
+* Posts history started 
+* Some fixes in text
+
+Changes for Version 0.10
+
+* Video (After the upload the Video is placed in the background threads queue. It gets the metadata, hashes and it generates a Contact Sheet. Before that is complete and successfull the Video is not accessible.)
+* Like posts
+* Board Access: different boards now can have different settings in user rights. 
+* Handling of .csv, .sfv, .md5 and .sha1 files (Each Board Thread and Name Space generates these files for you. If you have a missing files list from Programs like The!Checker you can use the Fills Search now. You can upload any of the hash files from above to generate a list. Certainly a help for serious collectors.)
+* Formatting help 
+* A post which has open reports states the number of reports hanging on the post. 
+* Menu improvements 
+* CSS is set in the User Settings (new menu item in Profile) 
+* Session handling, no more random log outs (hopefully) 
+* Single Posts can be linked now: [ posts/32529 ] => Announcements / New Features (v0.9) / Post 32529 
+* Links from the links list can be linked now: [ links/6 ] => http://somelink.some (Index somelink)
+* Post filter works in Reports and PMs
+* And lots of tiny fixes
+
+
+Changes for version 0.9
+
+* Modal rules on sign up
+* Modal shows on login
+* Warnings got a time stamp
+* Warnings are shown for 14 days only in the sidebar
+* CSS adapted to support a drop down
+* Added Search to Menu as a drop down
+* Added "Report a post" and handling Reports for moderators
+* Support simple one level BB code ([B][I][U][S])
+* Link to board objects (NameSpace, BoardThread, Wiki, Image)
+* Some Smiley's
+* Remove external links from posts
+* support of crc32
+* Image view shows EXIF data
+* Text boxes enlarged
+* fixed some CSS bugs
+* Replaced authentication system
+* Added tool-tips support
+* Replaced thread status info with tool-tips
+* Moved referers into its own view
+* merged CSS into one file
+* Add sortable and pageable to wiki
+* restricted_users can see pictures they have posted in full size
+* Handle hash calculation asynchronously after post
+* zip of single posts
+* zip includes all images even with same name (subfolder image.id / file )
+* zip files including all images
+* added dialog before create invitation
+* Fixed creating namespace with visibility

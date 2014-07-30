@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  post_id: 1
+  reporter_id: 1
+  message: MyText
+  handled: false
+
+two:
+  post_id: 1
+  reporter_id: 1
+  message: MyText
+  handled: false

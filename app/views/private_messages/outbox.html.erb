@@ -1,0 +1,41 @@
+<% page_heading 'PM Outbox' %>
+
+<div class="top-feeder">
+  <h1>Private Messages Outbox</h1>
+</div>
+
+<h3>Inbox</h3>
+
+<table>
+  <thead>
+  <tr>
+    <th>Subject</th>
+    <th>To</th>
+    <th>Date</th>
+    <th>Read</th>
+  </tr>
+  </thead>
+  <tbody>
+    <% @private_messages.each do |message| %>
+      <tr>
+        <td><%= link_to message.subject, message %></td>
+        <td><%= link_to message.receiver.name, message.receiver %></td>
+        <td><%= display_time message.created_at %></td>
+        <td><%= message.read ? fa_icon('fa-check-square-o') : fa_icon('fa-square-o') %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<% if will_paginate @private_messages %>
+    <div class="bottom-feeder">
+      <%= will_paginate @private_messages %>
+    </div>
+<% end %>
+
+<div class="bottom-feeder clear">
+  <div class="new">
+    <%= link_to fa_icon('fa-envelope-o') + 'New Message', new_private_message_path, :class => 'button' %>
+    <%= link_to fa_icon('fa-inbox') + 'Inbox', private_messages_path, :class => 'button' %>
+  </div>
+</div>

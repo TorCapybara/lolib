@@ -1,0 +1,29 @@
+<div class="top-feeder">
+    <span class="pull-right">
+      <%= link_to fa_icon('fa-user') + ' ' + 'Profile', @user, :class => 'button' %>
+      <%= link_to fa_icon('fa-list') + ' ' + 'Posts by User', posts_user_path(@user), :class => 'button' %>
+    </span>
+
+  <h1><%= @user.name %></h1>
+</div>
+
+<h4>Referer</h4>
+
+<table>
+  <tr>
+    <th>Referer</th>
+    <th>Time</th>
+  </tr>
+  <% @referers.each do |referer| %>
+      <tr>
+        <td><%= referer.name %></td>
+        <td><%= referer.created_at %></td>
+      </tr>
+  <% end %>
+</table>
+
+<% if will_paginate @referers %>
+    <div class="bottom-feeder">
+      <%= will_paginate @referers %>
+    </div>
+<% end %>

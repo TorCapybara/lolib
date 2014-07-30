@@ -1,0 +1,43 @@
+<div class="top-feeder">
+  <h1>New Thread</h1>
+</div>
+
+<%= render 'post_help' %>
+
+<%= form_for(@board_thread) do |f| %>
+    <% if @board_thread.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@board_thread.errors.count, "error") %> prohibited this board_thread from being saved:</h2>
+
+          <ul>
+            <% @board_thread.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+
+    <div class="field">
+      <%= f.label :title, :class => 'editor-label' %>
+      <%= f.text_field :title %>
+    </div>
+
+    <%= f.fields_for :posts do |g| %>
+        <div class="field">
+          <%= g.label :text, :class => 'editor-label' %>
+          <%= g.text_area :text, size: '60x15', :placeholder => 'At least 20 characters of text required' %>
+        </div>
+
+        <div class="field">
+          <%= f.label :images, "Images (1 or many)",:class => 'editor-label' %>
+          <%= f.file_field :images, :multiple => true, name: "images[]" %>
+        </div>
+    <% end %>
+
+    <div class="bottom-feeder clear">
+      <div class="new">
+        <%= f.hidden_field :name_space_id %>
+        <%= f.submit 'Save Thread', :class => 'button' %>
+      </div>
+    </div>
+<% end %>

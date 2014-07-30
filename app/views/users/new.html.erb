@@ -1,0 +1,71 @@
+<% page_heading 'Sign Up' %>
+
+<div class="top-feeder">
+  <h1>Sign Up</h1>
+</div>
+
+<%= form_for @user do |f| %>
+  <% if @user.errors.any? %>
+    <div id="error_explanation">
+      <h2>Form is invalid</h2>
+      <ul>
+        <% for message in @user.errors.full_messages %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name, :class => 'editor-label' %>
+    <%= f.text_field :name %>
+  </div>
+    <div class="field" style="height: 30px">
+      <%= label_tag :no_garbage, 'This is no garbage nick', :class => 'editor-label' %>
+      <%= check_box_tag :no_garbage, '1', nil, :style => 'display: inline-block; padding: 0.3em;' %> Nicks like asdf, 1234, Q1W2E3 will be deleted
+    </div>
+  <div class="field">
+    <%= f.label :password, :class => 'editor-label' %>
+    <%= f.password_field :password %>
+  </div>
+  <div class="field">
+    <%= f.label :password_confirmation, :class => 'editor-label' %>
+    <%= f.password_field :password_confirmation %>
+  </div>
+  <div class="field">
+    <%= label_tag 'Invitation Code', nil, :class => 'editor-label' %>
+    <%= text_field_tag 'code' %>
+  </div>
+  <div class="field" style="height: 30px">
+    <%= label_tag :no_code, 'I have no Code', :class => 'editor-label' %>
+    <%= check_box_tag :no_code, '1', nil, :style => 'display: inline-block; padding: 0.3em;' %> Your user will have only restricted access.
+  </div>
+  <div class="field">
+    <%= f.label 'Read the rules now', :class => 'editor-label' %>
+    <%= link_to('Rules', '#modal-text') %>
+  </div>
+
+  <div class="bottom-feeder clear">
+    <div class="new">
+      <%= f.submit 'Sign Up', :class => 'button' %>
+    </div>
+  </div>
+
+  <section class="semantic-content" id="modal-text" tabindex="-1" role="dialog" aria-labelledby="modal-label" aria-hidden="true">
+      <div class="modal-inner">
+        <header id="modal-label"><h1>Rules</h1></header>
+        <div class="modal-content"><%= raw RedCloth.new(Wiki.find_by_name('Rules').last_revision.content).to_html %></div>
+        <footer>
+          <div style="text-align: right; margin-top: 1em;">
+              I will follow the rules
+              <%= f.check_box :read_rules, :style => 'display: inline;' %>
+          </div>
+          <div style="text-align: right; margin-top: 1em;">
+            <a class="button" data-dismiss="modal" title="Close this modal" href="#!">Close</a>
+          </div>
+        </footer>
+      </div>
+      <a href="#!" class="modal-close button-danger" title="Close this modal" data-close="Close" data-dismiss="modal">×</a>
+    </section>
+
+<% end %>

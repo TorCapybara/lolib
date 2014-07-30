@@ -1,0 +1,31 @@
+<% if name_spaces.count > 0 %>
+    <ul class="tree">
+      <% name_spaces.each do |name_space| %>
+          <% if can? :read, name_space %>
+              <li>
+                <% if name_space.child_spaces.any? %>
+                    <% if state == 'open' %>
+                      <input type="checkbox" id="ns_<%= name_space.id %>" checked="checked" />
+                    <% else %>
+                        <input type="checkbox" id="ns_<%= name_space.id %>" />
+                    <% end %>
+                    <label for="ns_<%= name_space.id %>"></label>
+                <% end %>
+                <div class="node">
+                  <% if name_space.child_spaces.none? %>
+                      <label></label>
+                  <% end %>
+                  <%= link_to(name_space.name, name_space_path(name_space)) %>
+                  <span class="plus">
+                  <%= "#{name_space.board_threads.count} Threads " %>
+                    <%= link_to(fa_icon('fa-plus-square-o'), new_sub_name_space_path(name_space)) if can? :create, name_space %>
+                    <%= link_to(fa_icon('fa-pencil-square-o'), edit_name_space_path(name_space)) if can? :update, name_space %>
+                    <%= fa_icon('fa-info')if name_space.index %>
+                  </span>
+                </div>
+                <%= render 'name_space_node', :name_spaces => name_space.child_spaces.order('sort_order ASC'), :state => state %>
+              </li>
+          <% end %>
+      <% end %>
+    </ul>
+<% end %>

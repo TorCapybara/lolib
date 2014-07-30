@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  counter_type: MyString
+  scope: MyString
+  counter: 1
+
+two:
+  counter_type: MyString
+  scope: MyString
+  counter: 1

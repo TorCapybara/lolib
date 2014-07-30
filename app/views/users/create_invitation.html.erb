@@ -1,0 +1,19 @@
+<div class="top-feeder">
+  <h1>Are you sure you want to create an invitation?</h1>
+</div>
+
+<p>
+  A invitation will be generated, this invitation needs to be used ON SIGNUP and cannot be used for already existent users.
+</p>
+<p>
+  This will count to your trust quota.
+</p>
+
+<div class="bottom-feeder clear">
+  <div class="new">
+    <%= form_for(trust_user_path, :html => {:method => :post}) do %>
+        <%= button_tag fa_icon('fa-gift') + 'Create Invitation', :class => 'button' %>
+        <%= link_to fa_icon('fa-times-circle-o') + 'Cancel', @user, :class => 'button' %>
+    <% end %>
+  </div>
+</div>

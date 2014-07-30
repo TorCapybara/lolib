@@ -1,0 +1,27 @@
+<h1>Editing image</h1>
+
+<%= form_for([@image]) do |f| %>
+    <% if @image.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@image.errors.count, "error") %> prohibited this board_thread from being saved:</h2>
+
+          <ul>
+            <% @image.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+
+    <div class="field">
+      <%= f.label :name, :class => 'editor-label' %>
+      <%= f.text_field :name %>
+    </div>
+
+    <div class="bottom-feeder clear">
+      <div class="new">
+        <%= f.submit 'Save Post', :class => 'button' %>
+        <%= link_to 'Cancel', @image, :class => 'button' %>
+      </div>
+    </div>
+<% end %>

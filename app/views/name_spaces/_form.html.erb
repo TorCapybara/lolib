@@ -1,0 +1,65 @@
+<%= form_for(@name_space) do |f| %>
+    <% if @name_space.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@name_space.errors.count, "error") %> prohibited this name_space from being saved:</h2>
+
+          <ul>
+            <% @name_space.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+
+    <div class="field">
+      <%= f.label :name, :class => 'editor-label' %>
+      <%= f.text_field :name %>
+    </div>
+
+    <div class="field">
+      <%= f.label :sort_order, :class => 'editor-label' %>
+      <%= f.text_field :sort_order %>
+    </div>
+
+    <div class="field">
+      <%= f.label :parent_id, :class => 'editor-label' %>
+      <%= f.select :parent_id, NameSpace.select_tree, {include_blank: '<ROOT>'} %>
+    </div>
+
+    <div class="field">
+      <%= f.label :index, :class => 'editor-label' %>
+      <%= f.check_box :index %>&nbsp;
+    </div>
+
+    <table>
+      <tr>
+        <th>Role</th>
+        <th>Can Read</th>
+        <th>Can Create New Threads</th>
+        <th>Can Answer Threads</th>
+        <th>Can Answer With Pictures</th>
+        <th>Can Download</th>
+        <th>Can Access Video</th>
+        <th>Can Moderate</th>
+      </tr>
+
+      <%= f.fields_for(:board_accesses) do |g| %>
+          <tr>
+            <td class="key"><%= g.object.role.name %><%= g.hidden_field :role_id %></td>
+            <td><%= g.check_box :read %></td>
+            <td><%= g.check_box :write %></td>
+            <td><%= g.check_box :answer %></td>
+            <td><%= g.check_box :pictures %></td>
+            <td><%= g.check_box :download %></td>
+            <td><%= g.check_box :video %></td>
+            <td><%= g.check_box :manage %></td>
+          </tr>
+      <% end %>
+    </table>
+
+    <div class="bottom-feeder clear">
+      <div class="new">
+        <%= f.submit 'Create/Update Namespace', :class => 'button' %>
+      </div>
+    </div>
+<% end %>

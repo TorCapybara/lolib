@@ -1,0 +1,71 @@
+<% page_heading 'Links' %>
+
+<div class="top-feeder">
+  <h1>Listing links</h1>
+</div>
+
+<table>
+  <tr>
+    <th><%= sortable 'name', 'Site' %></th>
+    <th><%= sortable 'description' %></th>
+    <th><%= sortable 'uptime' %></th>
+    <th><%= sortable 'views' %></th>
+    <th><%= sortable 'updated_at', 'Last Check' %></th>
+    <th></th>
+  </tr>
+
+<% @links.each do |link| %>
+  <tr>
+    <td><%= link_to link.name + ' (' + link.uri + ')', redirect_link_path(link) %></td>
+    <td><%= link.description %></td>
+    <td><%= number_to_percentage(link.uptime, :precision => 1) %>
+
+      <% if link.last_check %>
+        (<span style="color: green; font-weight: bold; ">UP</span>)
+      <% else %>
+        (<span style="color: red; font-weight: bold; ">DOWN</span>)
+      <% end %>
+    </td>
+    <td><%= link.views %></td>
+    <td><%= display_time(link.updated_at) %></td>
+    <td>
+      <%= link_to fa_icon('fa-external-link'), redirect_link_path(link) %>
+      <% if can? :update, link %>
+          <%= link_to fa_icon('fa-pencil'), edit_link_path(link) %>
+      <% end %>
+      <% if can? :delete, link %>
+          <%= link_to fa_icon('fa-eraser'), delete_link_path(link) %>
+      <% end %>
+    </td>
+  </tr>
+<% end %>
+</table>
+
+<% if can? :read, PingBack %>
+
+  <h4>Ping Back</h4>
+
+  <table>
+    <tr>
+      <th>Referer</th>
+      <th>Count</th>
+      <th>Last Ping</th>
+    </tr>
+
+    <% @ping_backs.each do |ping| %>
+        <tr>
+          <td><%= link_to ping.referer, ping.referer %></td>
+          <td><%= ping.counter %></td>
+          <td><%= display_time(ping.updated_at) %></td>
+        </tr>
+    <% end %>
+  </table>
+<%end %>
+
+<div class="bottom-feeder">
+  <% if can? :create, Link %>
+    <div class="new"><%= link_to fa_icon('fa-plus') + ' ' + 'New Link', new_link_path, :class => 'button' %></div>
+  <% end %>
+</div>
+
+

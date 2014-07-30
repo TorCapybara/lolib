@@ -1,0 +1,53 @@
+<% page_heading 'PM: ' + @private_message.subject %>
+
+<div class="top-feeder">
+  <h1>Message</h1>
+</div>
+
+<% if @private_message.sender == current_user %>
+  <%= image_tag @private_message.receiver.avatar.file ? get_avatar_image_path(@private_message.receiver, :avatar) : asset_path('Anonymous.png'), :class => 'border pull-right' %>
+<% else %>
+    <%= image_tag @private_message.sender.avatar.file ? get_avatar_image_path(@private_message.sender, :avatar) : asset_path('Anonymous.png'), :class => 'border pull-right' %>
+<% end %>
+
+<table>
+  <tr>
+    <td class="caption">From:</td>
+    <td><%= link_to @private_message.sender.name, @private_message.sender %></td>
+  </tr>
+  <tr>
+    <td class="caption">To:</td>
+    <td><%= link_to @private_message.receiver.name, @private_message.receiver %></td>
+  </tr>
+  <tr>
+    <td class="caption">Sent:</td>
+    <td><%= display_time @private_message.created_at %></td>
+  </tr>
+  <tr>
+    <td class="caption">Read:</td>
+    <td><%= @private_message.read ? (display_time(@private_message.updated_at)) : 'not read yet' %></td>
+  </tr>
+</table>
+
+<div class="message">
+  <h3><%= @private_message.subject %></h3>
+  <%= format_post @private_message.text %>
+</div>
+<% if @private_message.reply_id %>
+  <h2>Answer to</h2>
+    <div class="message">
+      <h3><%= link_to @private_message.parent.subject, @private_message.parent %></h3>
+      <%= format_post @private_message.parent.text %>
+    </div>
+<% end %>
+
+<div class="bottom-feeder clear">
+  <div class="new">
+    <% if @private_message.sender == current_user %>
+      <%= link_to fa_icon('fa-envelope-o') + 'Outbox', outbox_private_messages_path, :class => 'button' %>
+    <% else %>
+      <%= link_to fa_icon('fa-reply') + 'Reply', reply_private_message_path, :class => 'button' %>
+      <%= link_to fa_icon('fa-envelope-o') + 'Inbox', private_messages_path, :class => 'button' %>
+    <% end %>
+  </div>
+</div>

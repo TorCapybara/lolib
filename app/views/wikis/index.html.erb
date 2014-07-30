@@ -1,0 +1,35 @@
+<% page_heading 'Wiki' %>
+
+<div class="top-feeder">
+  <h1>Listing wikis</h1>
+</div>
+
+<table>
+  <tr>
+    <th><%= sortable 'name' %></th>
+    <th>User</th>
+    <th>Revision</th>
+  </tr>
+
+  <% @wikis.each do |wiki| %>
+      <tr>
+        <td><%= link_to wiki.name, wiki %></td>
+        <td><%= link_user wiki.last_revision.user %></td>
+        <td><%= wiki.last_revision.revision %></td>
+      </tr>
+  <% end %>
+</table>
+<% if will_paginate %>
+    <div class="bottom-feeder">
+      <%= will_paginate %>
+    </div>
+<% end %>
+
+<div class="bottom-feeder">
+  <div class="new">
+    <% if can? :create, Wiki %>
+        <%= link_to fa_icon('fa-plus') + ' ' + 'New Wiki', new_wiki_path, :class => 'button' %>
+    <% end %>
+  </div>
+</div>
+

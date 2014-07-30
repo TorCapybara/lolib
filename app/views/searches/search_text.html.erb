@@ -1,0 +1,35 @@
+<div class="top-feeder">
+  <span class="pull-right">
+    <%= link_to fa_icon('fa-picture-o') + ' ' + 'Search by Image', search_image_path, :class => 'button' %>
+  </span>
+
+  <h1>Search</h1>
+</div>
+
+<form action="<%= search_text_path %>" method="get">
+  <div class="field">
+    <%= label_tag :q, "Search", :class => 'editor-label' %>
+    <%= text_field_tag :q, @search %>
+  </div>
+  <div class="field">
+    <%= label_tag :submit, "", :class => 'editor-label' %>
+    <%= submit_tag 'Search', :name => nil, :class => 'button' %>
+  </div>
+</form>
+
+<div class="search-result">
+  <% if @results %>
+      Search result for: <%= @search %>
+      <% @results.each do |result| %>
+          <% if can? :read, result %>
+              <%= render partial: 'result', locals: {result: result} %>
+          <% end %>
+      <% end %>
+  <% end %>
+</div>
+
+<% if will_paginate @results %>
+    <div class="bottom-feeder">
+      <%= will_paginate @results %>
+    </div>
+<% end %>

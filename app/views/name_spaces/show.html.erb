@@ -1,0 +1,52 @@
+<% page_heading @name_space.full_path + ' - Page ' + @page.to_s %>
+<div class="top-feeder">
+  <span class="pull-right">
+    <% if can?(:create_board_thread, @name_space) %>
+        <%= link_to fa_icon('fa-plus') + ' ' + 'New Thread', new_thread_board_thread_path(@name_space), :class => 'button' %>
+    <% end %>
+    <% if can?(:create_video, @name_space) %>
+        <%= link_to fa_icon('fa-film') + '  ' + 'New Video', new_video_video_path(@name_space), :class => 'button' %>
+    <% end %>
+    <%= link_to fa_icon('fa-picture-o') + 'Image Preview', preview_name_space_path(@name_space), :class => 'button' %>
+  </span>
+
+  <h1> <%= @name_space.name %></h1>
+</div>
+
+<p>
+  <% @name_space.child_spaces.order('sort_order ASC').each do |child| %>
+      <span class="sub-ns-spacer"><%= link_to fa_icon('fa-folder') + ' ' + child.name, name_space_path(child), :class => 'button ' %></span>
+  <% end %>
+</p>
+
+<h2>Threads</h2>
+
+<%= render 'threads', :threads => @board_threads, :stickies => @board_stickies %>
+
+<div class="bottom-feeder">
+  <div class="new">
+    <%= will_paginate @board_threads, :previous_label => "Newer threads", :next_label => "Older threads" %>
+  </div>
+  <div class="new">
+    <%= link_to 'verify.csv', verify_name_space_path(format: :csv) %>,
+    <%= link_to 'verify.sfv', verify_name_space_path(format: :sfv) %>,
+    <%= link_to 'verify.sha1', verify_name_space_path(format: :sha1) %>,
+    <%= link_to 'verify.md5', verify_name_space_path(format: :md5) %>
+  </div>
+  <div class="new">
+    <% if can?(:create_board_thread, @name_space) %>
+        <%= link_to fa_icon('fa-plus') + ' ' + 'New Thread', new_thread_board_thread_path(@name_space), :class => 'button' %>
+    <% end %>
+    <% if can?(:create_video, @name_space) %>
+        <%= link_to fa_icon('fa-film') + ' ' + 'New Video', new_video_video_path(@name_space), :class => 'button' %>
+    <% end %>
+    <% if can?(:create, NameSpace) %>
+        <%= link_to fa_icon('fa-plus') + ' ' + 'New Namespace', new_sub_name_space_path(@name_space), :class => 'button' %>
+    <% end %>
+    <% if can?(:update, @name_space) %>
+        <%= link_to fa_icon('fa-pencil-square-o') + ' ' + 'Edit Namespace', edit_name_space_path(@name_space), :class => 'button' %>
+    <% end %>
+  </div>
+</div>
+
+

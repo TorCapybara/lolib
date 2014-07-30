@@ -1,0 +1,9 @@
+# Sample localization file for English. Add more files in this directory for other locales.
+# See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
+# 
+
+en:
+  session:
+    logged_in: "You are successfully logged in!"
+    logged_out: "You have been successfully logged out!"
+    invalid_user_password: "Invalid name or password"
